@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import data from '../../data/data.json';
 
 @Component({
@@ -9,7 +10,13 @@ import data from '../../data/data.json';
 export class DashboardPageComponent implements OnInit {
   search = "";
   suggestion: string[] = [];
-  result: object[] = [];
+  result: object[] = [{
+    "name_product": "",
+    "amount": 0,
+    "createBy": "",
+    "createAt": 0,
+
+  }];
 
   constructor() {
   }
@@ -31,7 +38,12 @@ export class DashboardPageComponent implements OnInit {
     if (key.keyCode === 13) {
       data.forEach(element => {
         if (element['name_product'].includes(search)) {
-          this.result.push(element);
+          this.result.push({
+            "name_product": element.name_product,
+            "amount": element.amount,
+            "createBy": element.createBy,
+            "createAt": element.createAt
+          });
         }
       })
 
@@ -48,6 +60,15 @@ export class DashboardPageComponent implements OnInit {
   }
 
   onExport = () => {
-    console.log("Export!");
+    var options = {
+      fieldSeparator: ';',
+      quoteStrings: " ",
+      showLabels: true,
+      showTitle: true,
+      noDownload: false,
+      headers: ["Tên sản phẩm", "Số lượng", "Người tạo", "Thời gian tạo"],
+    };
+
+    console.log(new AngularCsv(this.result, "Data File", options));
   }
 }
