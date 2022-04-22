@@ -7,12 +7,11 @@
     align-items: center;
     width: 100%;
     justify-content: center;
-    margin: 15px 0;
+    margin: 30px 0 16px 0;
     gap: 50px;
     &--box {
       display: flex;
       align-items: center;
-      margin: 0 540px;
       border: 2px solid #ccc;
       border-radius: 8px;
       width: 224px;
@@ -48,8 +47,12 @@
   }
   &__table {
     border-collapse: collapse;
-    width: 100%;
     padding: 0 95px;
+    margin: 0 auto;
+    & button {
+      background-color: #fff;
+      border: none;
+    }
     &--a {
       border: 1px solid #dddddd;
       text-align: left;
@@ -76,7 +79,6 @@
           font-size: 25px;
         }
         &--trash {
-          padding-left: 25px;
         }
       }
       &--item2 --item3 --item4 --item5 {
@@ -99,6 +101,36 @@
       }
     }
   }
-  &__paging {
+  &__pagination {
+    &--custom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &--btn {
+        padding: 6px 28px;
+        border: 2px solid #ccc;
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+      }
+      &--first {
+        margin-right: 20px;
+      }
+      &--last {
+        margin-left: 20px;
+      }
+      &--last {
+        padding: 6px 25px;
+        border: 2px solid #ccc;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+      .page-number {
+        border: 1px solid #ccc;
+        padding: 7px 25px;
+      }
+      .pagination-next {
+        margin: 0;
+      }
+    }
   }
 }
