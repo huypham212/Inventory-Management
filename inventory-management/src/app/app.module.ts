@@ -9,7 +9,6 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { DetailPageComponent } from './pages/detail-page/detail-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { TestComponent } from './test/test.component';
     DetailPageComponent,
     HeaderComponent,
     FooterComponent,
-    TestComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgxPaginationModule],
   providers: [],

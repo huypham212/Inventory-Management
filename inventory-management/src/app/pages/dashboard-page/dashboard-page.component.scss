@@ -1,3 +1,5 @@
+@use './scss/index.scss' as *;
+
 .dashboard {
   width: 100%;
   overflow: hidden;
@@ -47,6 +49,7 @@
     }
   }
   &__table {
+
     border-collapse: collapse;
     padding: 0 95px;
     margin: 0 auto;
@@ -58,14 +61,22 @@
       border: 1px solid #dddddd;
       text-align: left;
       padding: 8px;
+     
     }
     & > tr,
     th,
     td {
       border: 1px solid #dddddd;
-      text-align: left;
       padding: 8px;
       text-align: center;
+      font-weight: 100;
+      @include tablet {
+        padding:31px;
+      }
+      @include mobile {
+        padding:9px;
+        font-size: 11px;
+      }
     }
     &--col {
       &--item {
@@ -74,11 +85,21 @@
           padding: 10px 28px;
           color: #fff;
           border-radius: 5px;
+          cursor:pointer;
+          
         }
         &--pencil,
         &--trash {
           font-size: 25px;
+          cursor:pointer;
+          @include tablet {
+            font-size:23px;
+          }
+          @include mobile {
+            font-size : 20px;
+          }
         }
+      
       }
       &--item2 --item3 --item4 --item5 {
         padding: 35px;
@@ -98,7 +119,10 @@
       &--item5 {
         width: 234px;
       }
+    
+     
     }
+  
   }
   &__pagination {
     &--custom {
@@ -111,6 +135,10 @@
         border: 2px solid #ccc;
         border-bottom-left-radius: 5px;
         border-top-left-radius: 5px;
+        cursor:pointer;
+        @include mobile {
+          padding: 5px 15px
+        }
       }
       &--first {
         margin-right: 20px;
@@ -123,16 +151,25 @@
         border: 2px solid #ccc;
         border-bottom-right-radius: 5px;
         border-top-right-radius: 5px;
+        cursor:pointer;
+        @include mobile {
+          padding: 5px 15px
+        }
       }
       .page-number {
         border: 1px solid #ccc;
         padding: 7px 25px;
+        cursor:pointer;
+        @include mobile {
+          padding: 5px 15px
+        }
       }
       .pagination-next {
         margin: 0;
       }
     }
   }
+  
 }
 
 .header {
@@ -147,6 +184,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @include mobile{
+      padding:0;
+    }
   }
   &__left {
     flex: 1.5;
@@ -163,10 +203,9 @@
       display: flex;
       align-items: center;
       background-color: #fff;
-      border-radius: 12px;
+      border-radius: 5px;
       overflow: hidden;
-
-      border: 1px solid #262626;
+      border: 2px solid #ccc;
       & > input {
         padding: 0 20px;
         background-color: transparent;
@@ -174,6 +213,12 @@
         height: 100%;
         border: none;
         outline: none;
+        @include mobile {
+          width :60px;
+        }
+      }
+      @include mobile {
+        width: 165px;
       }
     }
     &--icon {
@@ -188,6 +233,11 @@
       & > i {
         font-size: 25px;
         font-weight: 600;
+        cursor: pointer;
+        @include mobile {
+          font-size:20px;
+        }
+      
       }
     }
   }
@@ -196,6 +246,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    margin-right: 18px;
+    gap: 8px;
     &--img {
       width: 20px;
       height: 20px;
@@ -204,6 +256,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        cursor: pointer;
       }
     }
     & > a {
@@ -211,6 +264,9 @@
       color: #262626;
       font-size: 1rem;
       font-weight: 600;
+    }
+    @include tablet{
+      margin-right:0;
     }
   }
 }

@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import './assets/scss/index.scss'
+@import './assets/scss/index.scss';
+@import './app/pages/dashboard-page/scss/index';
+html{
+    font-family: 'Roboto', sans-serif;
+  }
+
+
 
