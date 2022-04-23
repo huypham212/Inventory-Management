@@ -1,11 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
-import data from '../../data/data.json';
+import inventoryData from '../../data/data.json';
+
+interface Data {
+  id: number;
+  name_product: string;
+  amount: number;
+  createBy: string;
+  createAt: number;
+  updateBy: string;
+  updateAt: string;
+  brand: string;
+  type: string;
+}
 
 @Component({
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
-  styleUrls: ['./dashboard-page.component.scss']
+  styleUrls: ['./dashboard-page.component.scss'],
 })
 export class DashboardPageComponent implements OnInit {
   search = "";
@@ -19,10 +31,23 @@ export class DashboardPageComponent implements OnInit {
   }];
 
   constructor() {
+    this.config = {
+      itemsPerPage: 10,
+      currentPage: 1,
+      totalItems: this.total,
+    };
+  }
+  config: any;
+    total = inventoryData.length;
+
+    data: Data[] = inventoryData;
+    pageChanged(event: any) {
+      this.config.currentPage = event;
+    }
   }
 
   ngOnInit(): void {
-    data.forEach(element => {
+    inventoryData.forEach(element => {
       this.suggestion.push(element.name_product);
       //console.table(this.suggestion.sort());
     })
@@ -36,7 +61,7 @@ export class DashboardPageComponent implements OnInit {
   onKeyPress = (key: any, search: string) => {
     this.result = [];
     if (key.keyCode === 13) {
-      data.forEach(element => {
+      inventoryData.forEach(element => {
         if (element['name_product'].includes(search)) {
           this.result.push({
             "name_product": element.name_product,
