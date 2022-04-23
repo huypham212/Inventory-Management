@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
+import { getDateString } from 'src/app/services';
+import { formatDate } from '@angular/common';
 import inventoryData from '../../data/data.json';
 
 interface Data {
