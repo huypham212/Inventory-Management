@@ -62,9 +62,9 @@ export class DashboardPageComponent implements OnInit {
   }
 
   onKeyPress = (key: any, search: string) => {
-    this.data = [];
-    this.result = [];
     if (key.keyCode === 13) {
+      this.data = [];
+      this.result = [];
       inventoryData.forEach(element => {
         if (element['name_product'].toLowerCase().includes(search.toLowerCase())) {
           this.data.push(element);
