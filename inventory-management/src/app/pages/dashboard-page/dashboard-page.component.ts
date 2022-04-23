@@ -23,13 +23,15 @@ interface Data {
 })
 export class DashboardPageComponent implements OnInit {
   search = "";
+  config: any;
+  total = inventoryData.length;
   suggestion: string[] = [];
   data: Data[] = inventoryData;
   result: object[] = [{
     "name_product": "",
     "amount": 0,
     "createBy": "",
-    "createAt": 0,
+    "createAt": "",
 
   }];
 
@@ -42,16 +44,11 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
     inventoryData.forEach(element => {
       this.suggestion.push(element.name_product);
       //console.table(this.suggestion.sort());
     })
   }
-
-  config: any;
-  total = inventoryData.length;
 
   pageChanged(event: any) {
     this.config.currentPage = event;
@@ -59,6 +56,10 @@ export class DashboardPageComponent implements OnInit {
 
   onSearch = (search: string) => {
     console.log(this.suggestion.filter((option) => option.toLowerCase().includes(search.toLowerCase())));
+  }
+
+  convertTimestampsToString = (value: number) => {
+    return getDateString(value);
   }
 
   onKeyPress = (key: any, search: string) => {
@@ -73,21 +74,13 @@ export class DashboardPageComponent implements OnInit {
             "name_product": element.name_product,
             "amount": element.amount,
             "createBy": element.createBy,
-            "createAt": element.createAt
+            "createAt": getDateString(element.createAt)
           });
         }
       })
 
       console.log(this.result);
     }
-  }
-
-  onNameSort = () => {
-    return;
-  }
-
-  onDateSort = () => {
-    return;
   }
 
   onExport = () => {
@@ -100,6 +93,18 @@ export class DashboardPageComponent implements OnInit {
       headers: ["Tên sản phẩm", "Số lượng", "Người tạo", "Thời gian tạo"],
     };
 
-    console.log(new AngularCsv(this.result, "Data File", options));
+    return new AngularCsv(this.result, "Data File", options);
+  }
+
+  onNameSort = () => {
+    return;
+  }
+
+  onDateSort = () => {
+    return;
+  }
+
+  onRowClick = (id: number) => {
+    console.log(id)
   }
 }

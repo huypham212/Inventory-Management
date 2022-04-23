@@ -17,7 +17,6 @@ export const getDateString = (datetime: number) => {
         }
     })
 
-    console.log(datetimeString, arrDatetime);
     return arrDatetime[0] + " " + arrDatetime[1] + " " + arrDatetime[2];
 
 }

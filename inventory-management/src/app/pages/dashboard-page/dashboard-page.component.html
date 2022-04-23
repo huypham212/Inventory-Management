@@ -24,6 +24,11 @@
                         <i class="bx bx-search"></i>
                     </div>
                 </div>
+                <!-- <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let item of suggestion">
+                        {{item}}
+                    </mat-option>
+                </mat-autocomplete> -->
             </div>
             <div class="header__right">
                 <div class="header__right--img">
@@ -39,13 +44,13 @@
             <th class="dashboard__table--col--item">
                 <i class="bx bx-plus-medical dashboard__table--col--item--plus"></i>
             </th>
-            <th class="dashboard__table--col--item2">Tên sản phẩm</th>
+            <th class="dashboard__table--col--item2" (click)="onNameSort()">Tên sản phẩm</th>
             <th class="dashboard__table--col--item3">Số Lượng</th>
             <th class="dashboard__table--col--item4">Người Tạo</th>
-            <th class="dashboard__table--col--item5">Thời Gian</th>
+            <th class="dashboard__table--col--item5" (click)="onDateSort()">Thời Gian</th>
         </thead>
         <tbody>
-            <tr *ngFor="let item of data | paginate: config">
+            <tr *ngFor="let item of data | paginate: config" (click)="onRowClick(item.id)">
                 <td>
                     <button>
                         <i class="bx bxs-pencil dashboard__table--col--item--pencil"></i>
@@ -57,7 +62,7 @@
                 <td>{{ item.name_product }}</td>
                 <td>{{ item.amount }}</td>
                 <td>{{ item.createBy }}</td>
-                <td>{{ item.createAt }}</td>
+                <td>{{ convertTimestampsToString(item.createAt) }}</td>
             </tr>
         </tbody>
     </table>
