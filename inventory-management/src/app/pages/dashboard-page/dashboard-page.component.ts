@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import data from '../../data/data.json';
+import { getDateString } from 'src/app/services';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -14,17 +16,21 @@ export class DashboardPageComponent implements OnInit {
     "name_product": "",
     "amount": 0,
     "createBy": "",
-    "createAt": 0,
+    "createAt": "",
 
   }];
   constructor() {
   }
 
   ngOnInit(): void {
+    this.result = data;
+
     data.forEach(element => {
       this.suggestion.push(element.name_product);
-      //console.table(this.suggestion.sort());
+      // console.table(formatDate(new Date(element.createAt * 1000).toUTCString(), "dd/MM/yyyy hh:mm:ss a", "en-US", "GMT+07:00"));
     })
+
+
   }
 
 
@@ -36,12 +42,12 @@ export class DashboardPageComponent implements OnInit {
     this.result = [];
     if (key.keyCode === 13) {
       data.forEach(element => {
-        if (element['name_product'].includes(search)) {
+        if (element['name_product'].toLowerCase().includes(search.toLowerCase())) {
           this.result.push({
             "name_product": element.name_product,
             "amount": element.amount,
             "createBy": element.createBy,
-            "createAt": element.createAt
+            "createAt": getDateString(element.createAt)
           });
         }
       })
