@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import inventoryData from '../../data/data.json';
 
@@ -29,7 +30,7 @@ export class DashboardPageComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   data: Data[] = inventoryData;
   pageChanged(event: any) {
