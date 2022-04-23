@@ -37,14 +37,6 @@ export class DashboardPageComponent implements OnInit {
       totalItems: this.total,
     };
   }
-  config: any;
-    total = inventoryData.length;
-
-    data: Data[] = inventoryData;
-    pageChanged(event: any) {
-      this.config.currentPage = event;
-    }
-  }
 
   ngOnInit(): void {
     inventoryData.forEach(element => {
@@ -53,6 +45,13 @@ export class DashboardPageComponent implements OnInit {
     })
   }
 
+  config: any;
+  total = inventoryData.length;
+
+  data: Data[] = inventoryData;
+  pageChanged(event: any) {
+    this.config.currentPage = event;
+  }
 
   onSearch = (search: string) => {
     console.log(this.suggestion.filter((option) => option.toLowerCase().includes(search.toLowerCase())));

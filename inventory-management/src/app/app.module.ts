@@ -16,18 +16,17 @@ import { FooterComponent } from './components/footer/footer.component';
     AppComponent,
     LoginPageComponent,
     DashboardPageComponent,
-    DetailPageComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
     DetailPageComponent,
     HeaderComponent,
     FooterComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgxPaginationModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    NgxPaginationModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
