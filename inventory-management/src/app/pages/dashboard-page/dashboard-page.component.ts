@@ -22,6 +22,7 @@ interface Data {
 export class DashboardPageComponent implements OnInit {
   search = "";
   suggestion: string[] = [];
+  data: Data[] = inventoryData;
   result: object[] = [{
     "name_product": "",
     "amount": 0,
@@ -39,6 +40,8 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
     inventoryData.forEach(element => {
       this.suggestion.push(element.name_product);
       //console.table(this.suggestion.sort());
@@ -48,7 +51,6 @@ export class DashboardPageComponent implements OnInit {
   config: any;
   total = inventoryData.length;
 
-  data: Data[] = inventoryData;
   pageChanged(event: any) {
     this.config.currentPage = event;
   }
@@ -58,10 +60,13 @@ export class DashboardPageComponent implements OnInit {
   }
 
   onKeyPress = (key: any, search: string) => {
+    this.data = [];
     this.result = [];
     if (key.keyCode === 13) {
       inventoryData.forEach(element => {
-        if (element['name_product'].includes(search)) {
+        if (element['name_product'].toLowerCase().includes(search.toLowerCase())) {
+          this.data.push(element);
+
           this.result.push({
             "name_product": element.name_product,
             "amount": element.amount,
