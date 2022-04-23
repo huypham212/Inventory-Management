@@ -1,1 +1,115 @@
-<p>dashboard-page works!</p>
+<div class="dashboard">
+  <!-- <div class="dashboard__search">
+    <div class="dashboard__search--box">
+      <input type="text" class="dashboard__search--box--input" />
+      <i class="bx bx-search dashboard__search--box--icon"></i>
+    </div>
+    <div class="dashboard__export">
+      <img
+        src="../../../assets/icons/ex.svg"
+        alt=""
+        class="dashboard__export--img"
+      />
+      <a href="#!" class="dashboard__export--link">Export</a>
+    </div>
+  </div> -->
+
+  <div class="header">
+    <div class="header__container">
+      <div class="header__left">
+        <div class="header__left--input">
+          <input type="text"  />
+          <div class="header__left--icon">
+            <i class="bx bx-search"></i>
+          </div>
+        </div>
+      </div>
+      <div class="header__right">
+        <div class="header__right--img">
+          <img
+            src="../../../assets/icons/ex.svg"
+            alt=""
+            class="header__right--img"
+          />
+        </div>
+        <a href="#!" class="header__right--link">Export</a>
+      </div>
+    </div>
+  </div>
+
+  <table class="dashboard__table">
+    <thead class="dashboard__table--col">
+      <th class="dashboard__table--col--item">
+        <i class="bx bx-plus-medical dashboard__table--col--item--plus"></i>
+      </th>
+      <th class="dashboard__table--col--item2">Tên sản phẩm</th>
+      <th class="dashboard__table--col--item3">Số Lượng</th>
+      <th class="dashboard__table--col--item4">Người Tạo</th>
+      <th class="dashboard__table--col--item5">Thời Gian</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data | paginate: config">
+        <td>
+          <button>
+            <i class="bx bxs-pencil dashboard__table--col--item--pencil"></i>
+          </button>
+          <button>
+            <i class="bx bxs-trash dashboard__table--col--item--trash"></i>
+          </button>
+        </td>
+        <td>{{ item.name_product }}</td>
+        <td>{{ item.amount }}</td>
+        <td>{{ item.createBy }}</td>
+        <td>{{ item.createAt }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pagination-template
+    #p="paginationApi"
+    [id]="config.id"
+    (pageChange)="config.currentPage = $event"
+    class="dashboard__pagination"
+  >
+    <div class="dashboard__pagination--custom">
+      <div
+        class="dashboard__pagination--custom--first dashboard__pagination--custom--btn"
+        [class.fade]="p.isFirstPage()"
+      >
+        <a (click)="p.setCurrent(1)"><<</a>
+      </div>
+      <div
+        class="pagination-previous dashboard__pagination--custom--btn"
+        [class.disabled]="p.isFirstPage()"
+      >
+        <span (click)="p.previous()"> < </span>
+      </div>
+      <div
+        class="page-number"
+        *ngFor="let page of p.pages"
+        [class.current]="p.getCurrent() === page.value"
+      >
+        <span
+          (click)="p.setCurrent(page.value)"
+          *ngIf="p.getCurrent() !== page.value"
+          >{{ page.label }}</span
+        >
+        <div *ngIf="p.getCurrent() === page.value">
+          <span>{{ page.label }}</span>
+        </div>
+      </div>
+      <div
+        class="pagination-next dashboard__pagination--custom--last"
+        [class.disabled]="p.isLastPage()"
+      >
+        <span (click)="p.next()"> > </span>
+      </div>
+      <div
+        class="pagination-last dashboard__pagination--custom--last"
+        [class.fade]="p.isLastPage()"
+      >
+        <a (click)="p.setCurrent(p.getLastPage())">>></a>
+      </div>
+    </div>
+  </pagination-template>
+</div>

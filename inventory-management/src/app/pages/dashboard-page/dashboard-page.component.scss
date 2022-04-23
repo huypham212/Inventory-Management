@@ -1,0 +1,272 @@
+@use './scss/index.scss' as *;
+
+.dashboard {
+  width: 100%;
+  overflow: hidden;
+  min-height: 100vh;
+
+  &__search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    margin: 30px 0 16px 0;
+    gap: 50px;
+    &--box {
+      display: flex;
+      align-items: center;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      width: 224px;
+      height: 40px;
+      justify-content: space-between;
+
+      &--input {
+        border: none;
+        height: 30px;
+        outline: none;
+        width: 100%;
+      }
+      &--icon {
+        font-size: 25px;
+        font-weight: bold;
+        padding-right: 10px;
+      }
+    }
+  }
+  &__export {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-right: 40px;
+    &--img {
+      width: 20px;
+    }
+    &--link {
+      text-decoration: none;
+      color: black;
+      font-weight: 600;
+    }
+  }
+  &__table {
+
+    border-collapse: collapse;
+    padding: 0 95px;
+    margin: 0 auto;
+    & button {
+      background-color: #fff;
+      border: none;
+    }
+    &--a {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+     
+    }
+    & > tr,
+    th,
+    td {
+      border: 1px solid #dddddd;
+      padding: 8px;
+      text-align: center;
+      font-weight: 100;
+      @include tablet {
+        padding:31px;
+      }
+      @include mobile {
+        padding:9px;
+        font-size: 11px;
+      }
+    }
+    &--col {
+      &--item {
+        &--plus {
+          background-color: #80d4f3;
+          padding: 10px 28px;
+          color: #fff;
+          border-radius: 5px;
+          cursor:pointer;
+          
+        }
+        &--pencil,
+        &--trash {
+          font-size: 25px;
+          cursor:pointer;
+          @include tablet {
+            font-size:23px;
+          }
+          @include mobile {
+            font-size : 20px;
+          }
+        }
+      
+      }
+      &--item2 --item3 --item4 --item5 {
+        padding: 35px;
+        padding: 35px;
+        padding: 35px;
+        padding: 35px;
+      }
+      &--item2 {
+        width: 428px;
+      }
+      &--item3 {
+        width: 213px;
+      }
+      &--item4 {
+        width: 257px;
+      }
+      &--item5 {
+        width: 234px;
+      }
+    
+     
+    }
+  
+  }
+  &__pagination {
+    &--custom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 18px;
+      &--btn {
+        padding: 6px 28px;
+        border: 2px solid #ccc;
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+        cursor:pointer;
+        @include mobile {
+          padding: 5px 15px
+        }
+      }
+      &--first {
+        margin-right: 20px;
+      }
+      &--last {
+        margin-left: 20px;
+      }
+      &--last {
+        padding: 6px 25px;
+        border: 2px solid #ccc;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+        cursor:pointer;
+        @include mobile {
+          padding: 5px 15px
+        }
+      }
+      .page-number {
+        border: 1px solid #ccc;
+        padding: 7px 25px;
+        cursor:pointer;
+        @include mobile {
+          padding: 5px 15px
+        }
+      }
+      .pagination-next {
+        margin: 0;
+      }
+    }
+  }
+  
+}
+
+.header {
+  width: 100%;
+  height: 66px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  &__container {
+    width: 100%;
+    padding: 0 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @include mobile{
+      padding:0;
+    }
+  }
+  &__left {
+    flex: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    &--input {
+      margin-left: 50px;
+      width: 250px;
+      height: 35px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 2px solid #ccc;
+      & > input {
+        padding: 0 20px;
+        background-color: transparent;
+        flex: 1;
+        height: 100%;
+        border: none;
+        outline: none;
+        @include mobile {
+          width :60px;
+        }
+      }
+      @include mobile {
+        width: 165px;
+      }
+    }
+    &--icon {
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      & > i {
+        font-size: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        @include mobile {
+          font-size:20px;
+        }
+      
+      }
+    }
+  }
+  &__right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 18px;
+    gap: 8px;
+    &--img {
+      width: 20px;
+      height: 20px;
+      margin-right: 7px;
+      & > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+      }
+    }
+    & > a {
+      text-decoration: none;
+      color: #262626;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    @include tablet{
+      margin-right:0;
+    }
+  }
+}
