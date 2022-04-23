@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -15,6 +16,12 @@ import { FooterComponent } from './components/footer/footer.component';
     AppComponent,
     LoginPageComponent,
     DashboardPageComponent,
+    DetailPageComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule
     DetailPageComponent,
     HeaderComponent,
     FooterComponent,

@@ -1,5 +1,5 @@
-
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import inventoryData from '../../data/data.json';
 
 interface Data {
@@ -20,8 +20,16 @@ interface Data {
   styleUrls: ['./dashboard-page.component.scss'],
 })
 export class DashboardPageComponent implements OnInit {
-  config: any;
-  total = inventoryData.length;
+  search = "";
+  suggestion: string[] = [];
+  result: object[] = [{
+    "name_product": "",
+    "amount": 0,
+    "createBy": "",
+    "createAt": 0,
+
+  }];
+
   constructor() {
     this.config = {
       itemsPerPage: 10,
@@ -29,11 +37,63 @@ export class DashboardPageComponent implements OnInit {
       totalItems: this.total,
     };
   }
+  config: any;
+    total = inventoryData.length;
 
-  ngOnInit(): void { }
+    data: Data[] = inventoryData;
+    pageChanged(event: any) {
+      this.config.currentPage = event;
+    }
+  }
 
-  data: Data[] = inventoryData;
-  pageChanged(event: any) {
-    this.config.currentPage = event;
+  ngOnInit(): void {
+    inventoryData.forEach(element => {
+      this.suggestion.push(element.name_product);
+      //console.table(this.suggestion.sort());
+    })
+  }
+
+
+  onSearch = (search: string) => {
+    console.log(this.suggestion.filter((option) => option.toLowerCase().includes(search.toLowerCase())));
+  }
+
+  onKeyPress = (key: any, search: string) => {
+    this.result = [];
+    if (key.keyCode === 13) {
+      inventoryData.forEach(element => {
+        if (element['name_product'].includes(search)) {
+          this.result.push({
+            "name_product": element.name_product,
+            "amount": element.amount,
+            "createBy": element.createBy,
+            "createAt": element.createAt
+          });
+        }
+      })
+
+      console.log(this.result);
+    }
+  }
+
+  onNameSort = () => {
+    return;
+  }
+
+  onDateSort = () => {
+    return;
+  }
+
+  onExport = () => {
+    var options = {
+      fieldSeparator: ';',
+      quoteStrings: " ",
+      showLabels: true,
+      showTitle: true,
+      noDownload: false,
+      headers: ["Tên sản phẩm", "Số lượng", "Người tạo", "Thời gian tạo"],
+    };
+
+    console.log(new AngularCsv(this.result, "Data File", options));
   }
 }
