@@ -29,8 +29,8 @@ export class DashboardPageComponent implements OnInit {
   valueSortName = 0;
   valueSortDate = 0;
   suggestion: string[] = [];
-  temp_data: Data[] = [];
-  data: Data[] = inventoryData;
+  // data: Data[] = Array.from(new Set(inventoryData));;
+  data: Data[] = inventoryData
   result: object[] = [{
     "name_product": "",
     "amount": 0,
@@ -47,7 +47,6 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.temp_data = inventoryData;
     inventoryData.forEach(element => {
       this.suggestion.push(element.name_product);
       //console.table(this.suggestion.sort());
@@ -104,18 +103,21 @@ export class DashboardPageComponent implements OnInit {
     switch (this.valueSortName) {
       case 0:
         this.data = this.data.sort((a, b) => (a.name_product < b.name_product) ? -1 : 1);
-        this.valueSortName += 1;
+        this.valueSortName++;
         // console.log(inventoryData);
         break;
       case 1:
         this.data = this.data.sort((a, b) => (a.name_product > b.name_product) ? -1 : 1);
-        this.valueSortName += 1;
+        this.valueSortName++;
         break;
       case 2:
-        this.data = initData;
+        // this.data = inventoryData;
+        this.data = this.data.sort((a, b) => (a.createAt > b.createAt) ? -1 : 1);
         this.valueSortName = 0;
         break;
     }
+    console.log(this.valueSortName)
+    console.log(inventoryData)
   }
 
   onDateSort = () => {
