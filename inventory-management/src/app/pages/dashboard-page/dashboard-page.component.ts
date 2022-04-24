@@ -3,6 +3,7 @@ import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import { getDateString } from 'src/app/services';
 import { formatDate } from '@angular/common';
 import inventoryData from '../../data/data.json';
+import initData from '../../data/data.json';
 
 interface Data {
   id: number;
@@ -25,15 +26,16 @@ export class DashboardPageComponent implements OnInit {
   search = "";
   config: any;
   total = inventoryData.length;
+  valueSortName = 0;
   valueSortDate = 0;
   suggestion: string[] = [];
-  data: Data[] = inventoryData;
+  // data: Data[] = Array.from(new Set(inventoryData));;
+  data: Data[] = inventoryData
   result: object[] = [{
     "name_product": "",
     "amount": 0,
     "createBy": "",
     "createAt": "",
-
   }];
 
   constructor() {
@@ -98,7 +100,24 @@ export class DashboardPageComponent implements OnInit {
   }
 
   onNameSort = () => {
-    return;
+    switch (this.valueSortName) {
+      case 0:
+        this.data = this.data.sort((a, b) => (a.name_product < b.name_product) ? -1 : 1);
+        this.valueSortName++;
+        // console.log(inventoryData);
+        break;
+      case 1:
+        this.data = this.data.sort((a, b) => (a.name_product > b.name_product) ? -1 : 1);
+        this.valueSortName++;
+        break;
+      case 2:
+        // this.data = inventoryData;
+        this.data = this.data.sort((a, b) => (a.createAt > b.createAt) ? -1 : 1);
+        this.valueSortName = 0;
+        break;
+    }
+    console.log(this.valueSortName)
+    console.log(inventoryData)
   }
 
   onDateSort = () => {
