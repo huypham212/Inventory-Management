@@ -25,6 +25,7 @@ export class DashboardPageComponent implements OnInit {
   search = "";
   config: any;
   total = inventoryData.length;
+  valueSortDate = 0;
   suggestion: string[] = [];
   data: Data[] = inventoryData;
   result: object[] = [{
@@ -101,7 +102,16 @@ export class DashboardPageComponent implements OnInit {
   }
 
   onDateSort = () => {
-    return;
+    switch (this.valueSortDate) {
+      case 0:
+        this.data = this.data.sort((a, b) => (a.createAt < b.createAt) ? -1 : 1);
+        this.valueSortDate++;
+        break;
+      case 1:
+        this.data = this.data.sort((a, b) => (a.createAt > b.createAt) ? -1 : 1);
+        this.valueSortDate = 0;
+        break;
+    }
   }
 
   onRowClick = (id: number) => {
