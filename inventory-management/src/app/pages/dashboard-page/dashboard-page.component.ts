@@ -3,6 +3,7 @@ import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import { getDateString } from 'src/app/services';
 import { formatDate } from '@angular/common';
 import inventoryData from '../../data/data.json';
+import initData from '../../data/data.json';
 
 interface Data {
   id: number;
@@ -25,14 +26,16 @@ export class DashboardPageComponent implements OnInit {
   search = "";
   config: any;
   total = inventoryData.length;
+  valueSortName = 0;
+  valueSortDate = 0;
   suggestion: string[] = [];
+  temp_data: Data[] = [];
   data: Data[] = inventoryData;
   result: object[] = [{
     "name_product": "",
     "amount": 0,
     "createBy": "",
     "createAt": "",
-
   }];
 
   constructor() {
@@ -44,6 +47,7 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.temp_data = inventoryData;
     inventoryData.forEach(element => {
       this.suggestion.push(element.name_product);
       //console.table(this.suggestion.sort());
@@ -97,11 +101,25 @@ export class DashboardPageComponent implements OnInit {
   }
 
   onNameSort = () => {
-    return;
+    switch (this.valueSortName) {
+      case 0:
+        this.data = this.data.sort((a, b) => (a.name_product < b.name_product) ? -1 : 1);
+        this.valueSortName += 1;
+        // console.log(inventoryData);
+        break;
+      case 1:
+        this.data = this.data.sort((a, b) => (a.name_product > b.name_product) ? -1 : 1);
+        this.valueSortName += 1;
+        break;
+      case 2:
+        this.data = initData;
+        this.valueSortName = 0;
+        break;
+    }
   }
 
   onDateSort = () => {
-    return;
+    console.log("sort date");
   }
 
   onRowClick = (id: number) => {
