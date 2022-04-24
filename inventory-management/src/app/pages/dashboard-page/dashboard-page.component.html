@@ -19,16 +19,16 @@
             <div class="header__left">
                 <div class="header__left--input">
                     <input type="text" [(ngModel)]="search" (ngModelChange)="onSearch(search)"
-                        (keypress)="onKeyPress($event, search)" />
+                        (keypress)="onKeyPress($event, search)" matInput [matAutocomplete]="auto" />
                     <div class=" header__left--icon">
                         <i class="bx bx-search"></i>
                     </div>
                 </div>
-                <!-- <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let item of suggestion">
+                <mat-autocomplete #auto="matAutocomplete" showPanel>
+                    <mat-option *ngFor="let item of suggestion" [value]="item">
                         {{item}}
                     </mat-option>
-                </mat-autocomplete> -->
+                </mat-autocomplete>
             </div>
             <div class="header__right">
                 <div class="header__right--img">

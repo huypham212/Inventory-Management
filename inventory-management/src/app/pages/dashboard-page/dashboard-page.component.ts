@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import { getDateString } from 'src/app/services';
-import { formatDate } from '@angular/common';
 import inventoryData from '../../data/data.json';
-import initData from '../../data/data.json';
 
 interface Data {
   id: number;
@@ -28,6 +27,7 @@ export class DashboardPageComponent implements OnInit {
   total = inventoryData.length;
   valueSortName = 0;
   valueSortDate = 0;
+  initialSuggestion: string[] = [];
   suggestion: string[] = [];
   // data: Data[] = Array.from(new Set(inventoryData));;
   data: Data[] = inventoryData
@@ -37,6 +37,7 @@ export class DashboardPageComponent implements OnInit {
     "createBy": "",
     "createAt": "",
   }];
+  myControl = new FormControl();
 
   constructor() {
     this.config = {
@@ -48,7 +49,7 @@ export class DashboardPageComponent implements OnInit {
 
   ngOnInit(): void {
     inventoryData.forEach(element => {
-      this.suggestion.push(element.name_product);
+      this.initialSuggestion.push(element.name_product);
     })
   }
 
@@ -57,7 +58,12 @@ export class DashboardPageComponent implements OnInit {
   }
 
   onSearch = (search: string) => {
-    console.log(this.suggestion.filter((option) => option.toLowerCase().includes(search.toLowerCase())));
+    if (search !== "") {
+      this.suggestion = this.initialSuggestion.filter((option) => option.toLowerCase().includes(search.toLowerCase()));
+      return;
+    }
+
+    this.suggestion = [];
   }
 
   convertTimestampsToString = (value: number) => {
