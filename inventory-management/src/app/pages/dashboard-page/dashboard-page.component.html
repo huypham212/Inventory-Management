@@ -50,7 +50,7 @@
             <th class="dashboard__table--col--item5" (click)="onDateSort()">Thời Gian</th>
         </thead>
         <tbody>
-            <tr *ngFor="let item of data | paginate: config" (click)="onRowClick(item.id)">
+            <tr *ngFor="let item of data | paginate: config" (dblclick)="onRowClick(item.id)">
                 <td>
                     <button>
                         <i class="bx bxs-pencil dashboard__table--col--item--pencil"></i>
@@ -67,8 +67,9 @@
         </tbody>
     </table>
 
-    <pagination-template #p="paginationApi" [id]="config.id" (pageChange)="config.currentPage = $event"
-        class="dashboard__pagination">
+
+    <pagination-template *ngIf="data.length > 10" #p="paginationApi" [id]="config.id"
+        (pageChange)="config.currentPage = $event" class="dashboard__pagination">
         <div class="dashboard__pagination--custom">
             <div class="dashboard__pagination--custom--first dashboard__pagination--custom--btn"
                 [class.fade]="p.isFirstPage()">
