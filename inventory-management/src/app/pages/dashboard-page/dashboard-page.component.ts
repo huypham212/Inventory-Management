@@ -49,7 +49,6 @@ export class DashboardPageComponent implements OnInit {
   ngOnInit(): void {
     inventoryData.forEach(element => {
       this.suggestion.push(element.name_product);
-      //console.table(this.suggestion.sort());
     })
   }
 
@@ -81,8 +80,6 @@ export class DashboardPageComponent implements OnInit {
           });
         }
       })
-
-      console.log(this.result);
     }
   }
 
@@ -116,8 +113,6 @@ export class DashboardPageComponent implements OnInit {
         this.valueSortName = 0;
         break;
     }
-    console.log(this.valueSortName)
-    console.log(inventoryData)
   }
 
   onDateSort = () => {
