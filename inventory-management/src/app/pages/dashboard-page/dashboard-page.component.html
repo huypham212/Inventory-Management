@@ -1,5 +1,5 @@
 <div class="dashboard">
-    <!-- <div class="dashboard__search">
+  <!-- <div class="dashboard__search">
     <div class="dashboard__search--box">
       <input type="text" class="dashboard__search--box--input" />
       <i class="bx bx-search dashboard__search--box--icon"></i>
@@ -37,8 +37,10 @@
                 <a (click)="onExport()" class="header__right--link">Export</a>
             </div>
         </div>
+        <a (click)="onExport()" class="header__right--link">Export</a>
+      </div>
     </div>
-
+  </div>
     <div *ngIf="data.length === 0">
         <p class="dashboard__title">Không có dữ liệu</p>
         <table class="dashboard__table">
@@ -123,5 +125,19 @@
                 <a (click)="p.setCurrent(p.getLastPage())">>></a>
             </div>
         </div>
-    </pagination-template>
+      </div>
+      <div
+        class="pagination-next dashboard__pagination--custom--last"
+        [class.disabled]="p.isLastPage()"
+      >
+        <span (click)="p.next()"> > </span>
+      </div>
+      <div
+        class="pagination-last dashboard__pagination--custom--last"
+        [class.fade]="p.isLastPage()"
+      >
+        <a (click)="p.setCurrent(p.getLastPage())">>></a>
+      </div>
+    </div>
+  </pagination-template>
 </div>

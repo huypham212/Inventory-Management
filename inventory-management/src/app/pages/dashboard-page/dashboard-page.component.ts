@@ -22,7 +22,7 @@ interface Data {
   styleUrls: ['./dashboard-page.component.scss'],
 })
 export class DashboardPageComponent implements OnInit {
-  search = "";
+  search = '';
   config: any;
   total = inventoryData.length;
   valueSortName = 0;
@@ -70,39 +70,41 @@ export class DashboardPageComponent implements OnInit {
 
   convertTimestampsToString = (value: number) => {
     return getDateString(value);
-  }
+  };
 
   onKeyPress = (key: any, search: string) => {
     if (key.keyCode === 13) {
       this.data = [];
       this.result = [];
-      inventoryData.forEach(element => {
-        if (element['name_product'].toLowerCase().includes(search.toLowerCase())) {
+      inventoryData.forEach((element) => {
+        if (
+          element['name_product'].toLowerCase().includes(search.toLowerCase())
+        ) {
           this.data.push(element);
 
           this.result.push({
-            "name_product": element.name_product,
-            "amount": element.amount,
-            "createBy": element.createBy,
-            "createAt": getDateString(element.createAt)
+            name_product: element.name_product,
+            amount: element.amount,
+            createBy: element.createBy,
+            createAt: getDateString(element.createAt),
           });
         }
       })
     }
-  }
+  };
 
   onExport = () => {
     var options = {
       fieldSeparator: ';',
-      quoteStrings: " ",
+      quoteStrings: ' ',
       showLabels: true,
       showTitle: true,
       noDownload: false,
-      headers: ["Tên sản phẩm", "Số lượng", "Người tạo", "Thời gian tạo"],
+      headers: ['Tên sản phẩm', 'Số lượng', 'Người tạo', 'Thời gian tạo'],
     };
 
-    return new AngularCsv(this.result, "Data File", options);
-  }
+    return new AngularCsv(this.result, 'Data File', options);
+  };
 
   onNameSort = () => {
     switch (this.valueSortName) {
@@ -137,6 +139,9 @@ export class DashboardPageComponent implements OnInit {
   }
 
   onRowClick = (id: number) => {
-    console.log(id)
-  }
+    // console.log(id);
+    // // console.table(this.data.find((element) => element.id === id));
+    // return this.data.find((element) => element.id === id);
+    // this.router.navigate(['/detail-page', id]);
+  };
 }
