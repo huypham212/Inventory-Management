@@ -29,15 +29,16 @@ export class DashboardPageComponent implements OnInit {
   valueSortDate = 0;
   initialSuggestion: string[] = [];
   suggestion: string[] = [];
-  // data: Data[] = Array.from(new Set(inventoryData));;
-  data: Data[] = inventoryData
-  result: object[] = [{
-    "name_product": "",
-    "amount": 0,
-    "createBy": "",
-    "createAt": "",
-  }];
-  myControl = new FormControl();
+  data: Data[] = inventoryData;
+  dataTmp: Data[] = [];
+  result: object[] = [
+    {
+      name_product: '',
+      amount: 0,
+      createBy: '',
+      createAt: '',
+    },
+  ];
 
   constructor() {
     this.config = {
@@ -49,9 +50,9 @@ export class DashboardPageComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(Math.floor(Date.now() / 1000));
-    inventoryData.forEach(element => {
+    inventoryData.forEach((element) => {
       this.initialSuggestion.push(element.name_product);
-    })
+    });
   }
 
   pageChanged(event: any) {
@@ -59,14 +60,16 @@ export class DashboardPageComponent implements OnInit {
   }
 
   onSearch = (search: string) => {
-    if (search !== "") {
-      this.suggestion = this.initialSuggestion.filter((option) => option.toLowerCase().includes(search.toLowerCase()));
+    if (search !== '') {
+      this.suggestion = this.initialSuggestion.filter((option) =>
+        option.toLowerCase().includes(search.toLowerCase())
+      );
       return;
     }
 
     this.suggestion = [];
     this.data = inventoryData;
-  }
+  };
 
   convertTimestampsToString = (value: number) => {
     return getDateString(value);
@@ -89,7 +92,7 @@ export class DashboardPageComponent implements OnInit {
             createAt: getDateString(element.createAt),
           });
         }
-      })
+      });
     }
   };
 
@@ -109,39 +112,59 @@ export class DashboardPageComponent implements OnInit {
   onNameSort = () => {
     switch (this.valueSortName) {
       case 0:
-        this.data = this.data.sort((a, b) => (a.name_product < b.name_product) ? -1 : 1);
+        this.data = this.data.sort((a, b) =>
+          a.name_product < b.name_product ? -1 : 1
+        );
         this.valueSortName++;
         // console.log(inventoryData);
         break;
       case 1:
-        this.data = this.data.sort((a, b) => (a.name_product > b.name_product) ? -1 : 1);
+        this.data = this.data.sort((a, b) =>
+          a.name_product > b.name_product ? -1 : 1
+        );
         this.valueSortName++;
         break;
       case 2:
         // this.data = inventoryData;
-        this.data = this.data.sort((a, b) => (a.createAt > b.createAt) ? -1 : 1);
+        this.data = this.data.sort((a, b) =>
+          a.createAt > b.createAt ? -1 : 1
+        );
         this.valueSortName = 0;
         break;
     }
-  }
+  };
 
   onDateSort = () => {
     switch (this.valueSortDate) {
       case 0:
-        this.data = this.data.sort((a, b) => (a.createAt < b.createAt) ? -1 : 1);
+        this.data = this.data.sort((a, b) =>
+          a.createAt < b.createAt ? -1 : 1
+        );
         this.valueSortDate++;
         break;
       case 1:
-        this.data = this.data.sort((a, b) => (a.createAt > b.createAt) ? -1 : 1);
+        this.data = this.data.sort((a, b) =>
+          a.createAt > b.createAt ? -1 : 1
+        );
         this.valueSortDate = 0;
         break;
     }
-  }
+  };
 
   onRowClick = (id: number) => {
     // console.log(id);
     // // console.table(this.data.find((element) => element.id === id));
     // return this.data.find((element) => element.id === id);
     // this.router.navigate(['/detail-page', id]);
+  };
+
+  onUpdate = (id: number) => {
+    console.log(id);
+  };
+
+  onDelete = (id: number) => {
+    console.log(id);
+    this.dataTmp = this.data.filter((element) => element.id !== id);
+    console.table(this.dataTmp);
   };
 }
