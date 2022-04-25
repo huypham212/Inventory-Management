@@ -34,6 +34,7 @@ interface defineDataCsv {
 })
 export class DashboardPageComponent implements OnInit {
   search = '';
+  messageExport = '';
   config: any;
   total = inventoryData.length;
   valueSortName = 0;
@@ -61,7 +62,8 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(Math.floor(Date.now() / 1000));
+    // console.log(Math.floor(Date.now() / 1000));
+    this.messageExport = '';
     inventoryData.forEach((element) => {
       this.initialSuggestion.push(element.name_product);
 
@@ -124,8 +126,10 @@ export class DashboardPageComponent implements OnInit {
       headers: ['Tên sản phẩm', 'Số lượng', 'Người tạo', 'Thời gian tạo'],
     };
 
-    console.log(this.result);
-    return new AngularCsv(this.result, 'Data File', options);
+    // console.log(this.result);
+
+    new AngularCsv(this.result, 'Data File', options);
+    return this.messageExport = "Export thành công";
   };
 
   onNameSort = () => {

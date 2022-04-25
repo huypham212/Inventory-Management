@@ -13,7 +13,6 @@
       <a href="#!" class="dashboard__export--link">Export</a>
     </div>
   </div> -->
-
     <div class="header">
         <div class="header__container">
             <div class="header__left">
@@ -132,4 +131,7 @@
             </div>
         </div>
     </pagination-template>
+    <div *ngIf="messageExport !== ''" class="message">
+        <p>{{messageExport}}</p>
+    </div>
 </div>
