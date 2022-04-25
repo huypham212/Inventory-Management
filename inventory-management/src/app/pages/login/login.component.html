@@ -1,0 +1,14 @@
+<div class="login">
+    <form class="login__form form-signin" (ngSubmit)="onSubmit(signInForm)" #signInForm="ngForm">
+      <h2 class="login__heading">Đăng Nhập</h2>
+
+      <label for="inputlogin" class="login__label">Tên đăng nhập</label>
+      <input type="text" class="login__input" id="inputLogin" name="login" ngModel
+      required autofocus >
+
+      <label for="inputPassword" class="login__label">Mật khẩu</label>
+      <input type="password" class="login__input" id="inputPassword" name="password" autocomplete="on" ngModel required>
+
+      <button class="login__button" type="submit">Đăng Nhập</button>
+    </form>
+  </div>

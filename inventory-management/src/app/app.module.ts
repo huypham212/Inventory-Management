@@ -16,6 +16,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UpdateModalComponent } from './components/update-modal/update-modal.component';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
+import { LoginComponent } from './pages/login/login.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { DeleteModalComponent } from './components/delete-modal/delete-modal.com
     FooterComponent,
     UpdateModalComponent,
     DeleteModalComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

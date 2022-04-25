@@ -1,0 +1,109 @@
+@use './scss/index.scss' as * ;
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Dongle&family=Josefin+Sans:ital,wght@1,500&family=Lato:ital@0;1&family=Lobster&family=Mochiy+Pop+P+One&family=Nunito:wght@300&family=Roboto:wght@400;500&family=Rubik&family=Satisfy&family=The+Nautigal:wght@700&display=swap');
+
+
+.login{
+  background-color: #ccc;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  &__heading{
+    margin: 0;
+    font-size: 40px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    font-weight: 500;
+    @include mobile {
+      text-align: center;
+      font-size: 26px;
+      margin-top: 30px;
+    }
+    
+  }
+
+  &__label{
+    font-size: 18px;
+    margin-bottom: 4px;
+    font-weight: 500;
+    @include mobile {
+
+    }
+    
+  }
+
+  &__button{
+    width: 80px;
+    height: 40px;
+    white-space: nowrap;
+    margin-top: 50px;
+    background: linear-gradient(to top, #3573cf,#39B8EB);
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 0.5px rgba(0, 0, 0, 0.5);
+    outline: none;
+    cursor: pointer;
+    @include mobile {
+      width: 100%;
+      margin-top: 22px;
+      box-shadow: none;
+      font-weight: 600;
+      font-size: 18px;
+
+    }
+    font-size: 14px;
+    @include tablet {
+      width: 100px;
+    }
+   
+  }
+
+  &__button:hover{
+      opacity: 0.8;
+  }
+
+  &__input{
+    margin-bottom: 15px;
+    height: 28px;
+    border: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #3875d2 #3875d2 rgb(60, 59, 59) #3875d2 ;
+    outline: none;
+    border-radius: 5px ;
+    @include mobile {
+      height: 40px;
+      opacity: 1;
+    }
+    @include tablet {
+      height: 40px;
+    }
+  }
+}
+
+.login__form{
+  width: 540px;
+  height: 460px;
+  padding: 50px 120px ;
+  background: linear-gradient(to top , #3A76D2, #fff);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  @include mobile {
+    height: 350px;
+    padding: 10px;
+    width: 350px;
+  }
+
+  @include tablet {
+    width: 600px;
+    height: 500px;
+  }
+ 
+}
+
