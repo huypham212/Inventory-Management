@@ -1,5 +1,5 @@
 <div class="dashboard">
-  <!-- <div class="dashboard__search">
+    <!-- <div class="dashboard__search">
     <div class="dashboard__search--box">
       <input type="text" class="dashboard__search--box--input" />
       <i class="bx bx-search dashboard__search--box--icon"></i>
@@ -37,10 +37,8 @@
                 <a (click)="onExport()" class="header__right--link">Export</a>
             </div>
         </div>
-        <a (click)="onExport()" class="header__right--link">Export</a>
-      </div>
     </div>
-  </div>
+
     <div *ngIf="data.length === 0">
         <p class="dashboard__title">Không có dữ liệu</p>
         <table class="dashboard__table">
@@ -84,56 +82,25 @@
         <tbody>
             <tr *ngFor="let item of data | paginate: config" (dblclick)="onRowClick(item.id)">
                 <td>
-                    <button>
+                    <button (click)="onUpdate()">
                         <i class="bx bxs-pencil dashboard__table--col--item--pencil"></i>
                     </button>
-                    <button>
+                    <button (click)="onDelete()">
                         <i class="bx bxs-trash dashboard__table--col--item--trash"></i>
                     </button>
                 </td>
-                <td>{{ item.name_product }}</td>
-                <td>{{ item.amount }}</td>
-                <td>{{ item.createBy }}</td>
-                <td>{{ convertTimestampsToString(item.createAt) }}</td>
+                <td [routerLink]="['/detail-page', item.id]">
+                    {{ item.name_product }}
+                </td>
+                <td [routerLink]="['/detail-page', item.id]">{{ item.amount }}</td>
+                <td [routerLink]="['/detail-page', item.id]">{{ item.createBy }}</td>
+                <td [routerLink]="['/detail-page', item.id]">
+                    {{ convertTimestampsToString(item.createAt) }}
+                </td>
             </tr>
         </tbody>
     </table>
 
-  <table class="dashboard__table">
-    <thead class="dashboard__table--col">
-      <th class="dashboard__table--col--item">
-        <i class="bx bx-plus-medical dashboard__table--col--item--plus"></i>
-      </th>
-      <th class="dashboard__table--col--item2" (click)="onNameSort()">
-        Tên sản phẩm
-      </th>
-      <th class="dashboard__table--col--item3">Số Lượng</th>
-      <th class="dashboard__table--col--item4">Người Tạo</th>
-      <th class="dashboard__table--col--item5" (click)="onDateSort()">
-        Thời Gian
-      </th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of data | paginate: config">
-        <td>
-          <button (click)="onUpdate(item.id)">
-            <i class="bx bxs-pencil dashboard__table--col--item--pencil"></i>
-          </button>
-          <button (click)="onDelete(item.id)">
-            <i class="bx bxs-trash dashboard__table--col--item--trash"></i>
-          </button>
-        </td>
-        <td [routerLink]="['/detail-page', item.id]">
-          {{ item.name_product }}
-        </td>
-        <td [routerLink]="['/detail-page', item.id]">{{ item.amount }}</td>
-        <td [routerLink]="['/detail-page', item.id]">{{ item.createBy }}</td>
-        <td [routerLink]="['/detail-page', item.id]">
-          {{ convertTimestampsToString(item.createAt) }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
 
     <pagination-template *ngIf="data.length > 10" #p="paginationApi" [id]="config.id"
         (pageChange)="config.currentPage = $event" class="dashboard__pagination">
@@ -160,19 +127,5 @@
                 <a (click)="p.setCurrent(p.getLastPage())">>></a>
             </div>
         </div>
-      </div>
-      <div
-        class="pagination-next dashboard__pagination--custom--last"
-        [class.disabled]="p.isLastPage()"
-      >
-        <span (click)="p.next()"> > </span>
-      </div>
-      <div
-        class="pagination-last dashboard__pagination--custom--last"
-        [class.fade]="p.isLastPage()"
-      >
-        <a (click)="p.setCurrent(p.getLastPage())">>></a>
-      </div>
-    </div>
-  </pagination-template>
+    </pagination-template>
 </div>

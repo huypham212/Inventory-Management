@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import { getDateString } from 'src/app/services';
 import inventoryData from '../../data/data.json';
+import { UpdateModalComponent } from './../../components/update-modal/update-modal.component';
+import { DeleteModalComponent } from './../../components/delete-modal/delete-modal.component';
 
 interface Data {
   id: number;
@@ -40,7 +43,7 @@ export class DashboardPageComponent implements OnInit {
     },
   ];
 
-  constructor() {
+  constructor(private matDialog: MatDialog) {
     this.config = {
       itemsPerPage: 10,
       currentPage: 1,
@@ -158,13 +161,15 @@ export class DashboardPageComponent implements OnInit {
     // this.router.navigate(['/detail-page', id]);
   };
 
-  onUpdate = (id: number) => {
-    console.log(id);
+  onUpdate = () => {
+    this.matDialog.open(UpdateModalComponent)
   };
 
-  onDelete = (id: number) => {
-    console.log(id);
-    this.dataTmp = this.data.filter((element) => element.id !== id);
-    console.table(this.dataTmp);
+  onDelete = () => {
+
+    this.matDialog.open(DeleteModalComponent)
+    // console.log(id);
+    // this.dataTmp = this.data.filter((element) => element.id !== id);
+    // console.table(this.dataTmp);
   };
 }

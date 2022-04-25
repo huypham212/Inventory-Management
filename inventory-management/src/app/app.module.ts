@@ -14,6 +14,8 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { DetailPageComponent } from './pages/detail-page/detail-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { UpdateModalComponent } from './components/update-modal/update-modal.component';
+import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 
 
 @NgModule({
@@ -24,6 +26,8 @@ import { FooterComponent } from './components/footer/footer.component';
     DetailPageComponent,
     HeaderComponent,
     FooterComponent,
+    UpdateModalComponent,
+    DeleteModalComponent,
   ],
   imports: [
     BrowserModule,
