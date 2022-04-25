@@ -39,7 +39,37 @@
         </div>
     </div>
 
-    <table class="dashboard__table">
+    <div *ngIf="data.length === 0">
+        <p class="dashboard__title">Không có dữ liệu</p>
+        <table class="dashboard__table">
+            <thead class="dashboard__table--col">
+                <th class="dashboard__table--col--item">
+                    <i class="bx bx-plus-medical dashboard__table--col--item--plus"></i>
+                </th>
+                <th class="dashboard__table--col--item2" (click)="onNameSort()">Tên sản phẩm</th>
+                <th class="dashboard__table--col--item3">Số Lượng</th>
+                <th class="dashboard__table--col--item4">Người Tạo</th>
+                <th class="dashboard__table--col--item5" (click)="onDateSort()">Thời Gian</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of [1,2,3,4,5,6,7,8,9,10] | paginate: config">
+                    <td>
+                        <button>
+                            <i class="bx bxs-pencil dashboard__table--col--item--pencil"></i>
+                        </button>
+                        <button>
+                            <i class="bx bxs-trash dashboard__table--col--item--trash"></i>
+                        </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <table *ngIf="data.length !== 0" class="dashboard__table">
         <thead class="dashboard__table--col">
             <th class="dashboard__table--col--item">
                 <i class="bx bx-plus-medical dashboard__table--col--item--plus"></i>

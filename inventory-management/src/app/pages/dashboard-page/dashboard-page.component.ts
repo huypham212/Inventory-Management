@@ -48,6 +48,7 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(Math.floor(Date.now() / 1000));
     inventoryData.forEach(element => {
       this.initialSuggestion.push(element.name_product);
     })
@@ -64,6 +65,7 @@ export class DashboardPageComponent implements OnInit {
     }
 
     this.suggestion = [];
+    this.data = inventoryData;
   }
 
   convertTimestampsToString = (value: number) => {

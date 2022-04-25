@@ -46,8 +46,15 @@
       text-decoration: none;
       color: black;
       font-weight: 600;
+      
     }
   }
+
+  &__title{
+    padding: 0 95px;
+    margin: 0 auto;
+  }
+
   &__table {
 
     border-collapse: collapse;
@@ -271,6 +278,7 @@
       color: #262626;
       font-size: 1rem;
       font-weight: 600;
+      cursor: pointer;
     }
     @include tablet{
       margin-right:0;
