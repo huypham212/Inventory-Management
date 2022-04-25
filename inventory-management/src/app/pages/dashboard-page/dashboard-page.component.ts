@@ -56,6 +56,13 @@ export class DashboardPageComponent implements OnInit {
     console.log(Math.floor(Date.now() / 1000));
     inventoryData.forEach((element) => {
       this.initialSuggestion.push(element.name_product);
+
+      this.result.push({
+        name_product: element.name_product,
+        amount: element.amount,
+        createBy: element.createBy,
+        createAt: getDateString(element.createAt),
+      });
     });
   }
 
@@ -103,13 +110,13 @@ export class DashboardPageComponent implements OnInit {
   onExport = () => {
     var options = {
       fieldSeparator: ';',
-      quoteStrings: ' ',
       showLabels: true,
       showTitle: true,
       noDownload: false,
       headers: ['Tên sản phẩm', 'Số lượng', 'Người tạo', 'Thời gian tạo'],
     };
 
+    console.log(this.result)
     return new AngularCsv(this.result, 'Data File', options);
   };
 
