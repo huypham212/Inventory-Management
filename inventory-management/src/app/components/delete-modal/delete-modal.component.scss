@@ -1,28 +1,16 @@
-html{
-    font-size: 10px;
-}
-body{
-    position: relative;
-
-    background-color: #bbbbbb;
-    font-family: Arial, Helvetica, sans-serif;
-    height: 100vh;
-}
-.add-dashboard,.delete-dashboard{
+.delete-dashboard{
     width: 480px;
-    height: 350px;
+    height: 140px;
     background-color: #fff;
     border-radius: 10px;
     position: absolute;
     left: calc(50% - 480px/2);
-    top:100px;
+    // top:300px;
+    top: 50%;
+    transform: translateY(-50%);
     font-weight: 600;
     box-shadow: 2px 2px 6px 0px #00000082;
     transition: .3s ease-in;
-}
-.delete-dashboard{
-    height: 120px;
-    top:200px;
 }
 .escape-icon{
     position: absolute;
@@ -38,99 +26,35 @@ body{
 .escape-icon:hover{
     background-color: #bbb;
 }
-.heading-add,.heading-delete{
-    width: 150px;
-    height: 20px;
-    font-size: 1.3rem;
+a.close-popup{
     position: absolute;
-    left: calc(50% - 150px/2);
-    top: 15px;
-    user-select: none;
+    top: -6px;
+    right: 2px;
+    font-size: 24px;
+    color: #111;
+    text-decoration: none;
 }
 .heading-delete{
     width: 380px;
-    left: 30px;
-}
-form{
-    width: 280px;
-    height: 250px;
+    height: 20px;
+    font-size: 14px;
     position: absolute;
-    left: calc(50% - 280px/2);
-    top: 58px;
+    left: 35px;
+    top: 15px;
+    user-select: none;
 }
-.fm{
-    display: flex;
-    flex-direction: row;
-}
-.fm + .fm{
-    margin-top: 0px;
-}
-.fm:nth-of-type(4){
-    margin-top: 10px;
-}
-.fm-name{
-    width: 100px;
-    height: 30px;
-    margin-top: 3px;
-    font-size: 1.2rem;
-}
+
 .blue-color{
     color: #1e98d7;
 }
-.fm-name-redstar{
-    color: #d9001c;
-}
-.fm-input{
-    width: 150px;
-    margin-left: 16px;
-}
-#fm-desc{
-    width: 164px;
-    height: 60px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-#fm-company, #fm-type-product{
-    width: 170px;
-}
-.btn{
-    height: 150px;
-    width: 40px;
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    left: 55%;
-    top: 85%;
-}
-.btn-detele,.btn-add,.btn-update{
-    width: 85px;
-    height: 35px;
-    border-radius: 5px;
-    color: #fff;
-    position: absolute;
-    border: none;
-    cursor: pointer;
-}
-.btn-detele{
-    background-color: #d9001c;
-}
-.btn-add,.btn-update{
-    left: 100px;
-    background-color:#1e98d7;
-}
-.btn-detele:hover{
-    transition: .5s;
-    background-color: rgba(217, 0, 29, 0.8);
-}
-.btn-add:hover,.btn-update:hover{
-    transition: .5s;
-    background-color: rgba(27, 137, 192, 0.8);
-}
+
+
 .btn-btn-delete{
     width: 320px;
     height: 40px;
     position: absolute;
     left: calc(50% - 320px/2);
-    top: 60px;
+    top: 70px;
 }
 .btn-update-perm,.btn-detele-temp{
     width: 140px;
@@ -150,16 +74,8 @@ form{
     background-color: rgba(217, 0, 29, 0.8);
 }
 @media only screen and (max-width: 510px){
-    .add-dashboard{
-        width: 300px;
-        left: calc(50% - 300px/2);
-
-    }
     .fm-input{
         margin-left: 0px;
-    }
-    .btn{
-        left: calc(30% - 40px/2);
     }
     .delete-dashboard{
         width: 300px;
@@ -178,40 +94,4 @@ form{
         width: 220px;
         text-align: center;
     }
-}
-/* Phan nay lam hieu ung */
-.center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.center a{
-    padding: 10px 20px;
-    background-color: #eee;
-    color: #111;
-    font-weight: 600;
-    font-size: 15px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-#popup a.close-popup{
-    position: absolute;
-    top: -4px;
-    right: 2px;
-    font-size: 24px;
-    color: #111;
-    text-decoration: none;
-}
-#popup{
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, .35);
-    display: none;
-}
-#popup:target{
-    display: block;
 }
