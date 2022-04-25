@@ -46,8 +46,15 @@
       text-decoration: none;
       color: black;
       font-weight: 600;
+      
     }
   }
+
+  &__title{
+    padding: 0 95px;
+    margin: 0 auto;
+  }
+
   &__table {
 
     border-collapse: collapse;
@@ -68,7 +75,6 @@
     td {
       border: 1px solid #dddddd;
       padding: 8px;
-      cursor: pointer;
       text-align: center;
       font-weight: 100;
       @include tablet {
@@ -78,6 +84,10 @@
         padding:9px;
         font-size: 11px;
       }
+    }
+
+    & > tr, td{
+      cursor: pointer;
     }
 
     &--col {
@@ -111,6 +121,7 @@
       }
       &--item2 {
         width: 428px;
+        cursor: pointer;
       }
       &--item3 {
         width: 213px;
@@ -120,6 +131,7 @@
       }
       &--item5 {
         width: 234px;
+        cursor: pointer;
       }
     
      
@@ -266,6 +278,7 @@
       color: #262626;
       font-size: 1rem;
       font-weight: 600;
+      cursor: pointer;
     }
     @include tablet{
       margin-right:0;
