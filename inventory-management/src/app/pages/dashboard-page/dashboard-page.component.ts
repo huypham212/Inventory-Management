@@ -20,6 +20,13 @@ interface Data {
   type: string;
 }
 
+interface defineDataCsv {
+  name_product: string;
+  amount: number;
+  createBy: string;
+  createAt: string;
+}
+
 @Component({
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
@@ -35,14 +42,15 @@ export class DashboardPageComponent implements OnInit {
   suggestion: string[] = [];
   data: Data[] = inventoryData;
   dataTmp: Data[] = [];
-  result: object[] = [
-    {
-      name_product: '',
-      amount: 0,
-      createBy: '',
-      createAt: '',
-    },
-  ];
+  // result: object[] = [
+  //   {
+  //     name_product: '',
+  //     amount: 0,
+  //     createBy: '',
+  //     createAt: '',
+  //   },
+  // ];
+  result: defineDataCsv[] = [];
 
   constructor(private matDialog: MatDialog) {
     this.config = {
@@ -116,7 +124,7 @@ export class DashboardPageComponent implements OnInit {
       headers: ['Tên sản phẩm', 'Số lượng', 'Người tạo', 'Thời gian tạo'],
     };
 
-    console.log(this.result)
+    console.log(this.result);
     return new AngularCsv(this.result, 'Data File', options);
   };
 
@@ -171,15 +179,14 @@ export class DashboardPageComponent implements OnInit {
 
   onAdd = () => {
     this.matDialog.open(ModalAddComponent);
-  }
+  };
 
   onUpdate = () => {
-    this.matDialog.open(UpdateModalComponent)
+    this.matDialog.open(UpdateModalComponent);
   };
 
   onDelete = () => {
-
-    this.matDialog.open(DeleteModalComponent)
+    this.matDialog.open(DeleteModalComponent);
     // console.log(id);
     // this.dataTmp = this.data.filter((element) => element.id !== id);
     // console.table(this.dataTmp);
