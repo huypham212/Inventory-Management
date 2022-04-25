@@ -6,6 +6,7 @@ import { getDateString } from 'src/app/services';
 import inventoryData from '../../data/data.json';
 import { UpdateModalComponent } from './../../components/update-modal/update-modal.component';
 import { DeleteModalComponent } from './../../components/delete-modal/delete-modal.component';
+import { ModalAddComponent } from './../../components/modal-add/modal-add.component';
 
 interface Data {
   id: number;
@@ -160,6 +161,10 @@ export class DashboardPageComponent implements OnInit {
     // return this.data.find((element) => element.id === id);
     // this.router.navigate(['/detail-page', id]);
   };
+
+  onAdd = () => {
+    this.matDialog.open(ModalAddComponent);
+  }
 
   onUpdate = () => {
     this.matDialog.open(UpdateModalComponent)

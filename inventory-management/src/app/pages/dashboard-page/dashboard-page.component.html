@@ -72,7 +72,9 @@
     <table *ngIf="data.length !== 0" class="dashboard__table">
         <thead class="dashboard__table--col">
             <th class="dashboard__table--col--item">
-                <i class="bx bx-plus-medical dashboard__table--col--item--plus"></i>
+                <button (click)="onAdd()">
+                    <i class="bx bx-plus-medical dashboard__table--col--item--plus"></i>
+                </button>
             </th>
             <th class="dashboard__table--col--item2" (click)="onNameSort()">Tên sản phẩm</th>
             <th class="dashboard__table--col--item3">Số Lượng</th>
