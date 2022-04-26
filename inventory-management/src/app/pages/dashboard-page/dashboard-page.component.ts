@@ -44,14 +44,6 @@ export class DashboardPageComponent implements OnInit {
   suggestion: string[] = [];
   data: Data[] = inventoryData;
   dataTmp: Data[] = [];
-  // result: object[] = [
-  //   {
-  //     name_product: '',
-  //     amount: 0,
-  //     createBy: '',
-  //     createAt: '',
-  //   },
-  // ];
   result: defineDataCsv[] = [];
 
   constructor(private matDialog: MatDialog, private router: Router) {
@@ -127,8 +119,6 @@ export class DashboardPageComponent implements OnInit {
       headers: ['Tên sản phẩm', 'Số lượng', 'Người tạo', 'Thời gian tạo'],
     };
 
-    // console.log(this.result);
-
     new AngularCsv(this.result, 'Data File', options);
     return this.messageExport = "Export thành công";
   };
@@ -140,7 +130,6 @@ export class DashboardPageComponent implements OnInit {
           a.name_product < b.name_product ? -1 : 1
         );
         this.valueSortName++;
-        // console.log(inventoryData);
         break;
       case 1:
         this.data = this.data.sort((a, b) =>
@@ -149,7 +138,6 @@ export class DashboardPageComponent implements OnInit {
         this.valueSortName++;
         break;
       case 2:
-        // this.data = inventoryData;
         this.data = this.data.sort((a, b) =>
           a.createAt > b.createAt ? -1 : 1
         );
@@ -176,9 +164,6 @@ export class DashboardPageComponent implements OnInit {
   };
 
   onRowClick = (id: number) => {
-    // console.log(id);
-    // // console.table(this.data.find((element) => element.id === id));
-    // return this.data.find((element) => element.id === id);
     this.router.navigate(['/detail-page', id]);
   };
 
@@ -192,8 +177,5 @@ export class DashboardPageComponent implements OnInit {
 
   onDelete = () => {
     this.matDialog.open(DeleteModalComponent);
-    // console.log(id);
-    // this.dataTmp = this.data.filter((element) => element.id !== id);
-    // console.table(this.dataTmp);
   };
 }

@@ -8,17 +8,12 @@ import dataa from '../../data/data.json';
   styleUrls: ['./detail-page.component.scss'],
 })
 export class DetailPageComponent implements OnInit {
-  // datas: object[] = [];
   datas: any;
   id: any;
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // this.route.params.subscribe((params) => {
-    //   this.datas = params;
-    // });
     this.id = this.route.snapshot.params;
-    // console.table(dataa);
     dataa.filter((item) => {
       if (item.id === +this.route.snapshot.params['id']) {
         this.datas = item;
@@ -31,19 +26,7 @@ export class DetailPageComponent implements OnInit {
     console.log(this.datas);
   }
 
-  onFilter = (search: number) => {
-    console.log(
-      this.datas.filter(
-        () => {
-          // if (item.id === +this.route.snapshot.params) {
-          //   this.datas.push(item);
-          //   console.log(item);
-          // }
-        }
-        // option.name_product.toLowerCase().includes(search.toLowerCase())
-      )
-    );
-  };
+  onFilter = (search: number) => { };
 
   convertTimestampsToString = (value: number) => {
     return getDateString(value);
