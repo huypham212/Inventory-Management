@@ -102,13 +102,6 @@ export class DashboardPageComponent implements OnInit {
           element['name_product'].toLowerCase().includes(search.toLowerCase())
         ) {
           this.data.push(element);
-
-          this.result.push({
-            name_product: element.name_product,
-            amount: element.amount,
-            createBy: element.createBy,
-            createAt: getDateString(element.createAt),
-          });
         }
       });
     }
@@ -116,15 +109,26 @@ export class DashboardPageComponent implements OnInit {
 
   onExport = () => {
     var options = {
+      title: '',
       fieldSeparator: ';',
       showLabels: true,
       showTitle: true,
       noDownload: false,
-      headers: ['Tên sản phẩm', 'Số lượng', 'Người tạo', 'Thời gian tạo'],
+      headers: ['Tên sản phẩm', 'Số lượng', 'Người tạo', 'Thời gian tạo']
     };
 
+    this.result = [];
+    this.data.forEach(element => {
+      this.result.push({
+        name_product: element.name_product,
+        amount: element.amount,
+        createBy: element.createBy,
+        createAt: getDateString(element.createAt),
+      });
+
+    })
     new AngularCsv(this.result, 'Data File', options);
-    return (this.messageExport = 'Export thành công');
+    return (this.messageExport = 'Xuất thành công');
   };
 
   onNameSort = () => {
