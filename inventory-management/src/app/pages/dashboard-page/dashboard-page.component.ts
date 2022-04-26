@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import {
+  MatDialogRef,
+  MatDialog,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import { getDateString } from 'src/app/services';
 import inventoryData from '../../data/data.json';
@@ -120,7 +124,7 @@ export class DashboardPageComponent implements OnInit {
     };
 
     new AngularCsv(this.result, 'Data File', options);
-    return this.messageExport = "Export thành công";
+    return (this.messageExport = 'Export thành công');
   };
 
   onNameSort = () => {
@@ -171,8 +175,11 @@ export class DashboardPageComponent implements OnInit {
     this.matDialog.open(ModalAddComponent);
   };
 
-  onUpdate = () => {
-    this.matDialog.open(UpdateModalComponent);
+  onUpdate = (id: number) => {
+    console.log(id);
+    this.dataTmp = this.data.filter((element) => element.id === id);
+    console.log(this.dataTmp);
+    this.matDialog.open(UpdateModalComponent, { data: this.dataTmp });
   };
 
   onDelete = () => {
