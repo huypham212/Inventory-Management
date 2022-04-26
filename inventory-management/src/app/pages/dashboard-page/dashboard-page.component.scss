@@ -360,7 +360,7 @@
     }
   }
 
-  .message{
+  .message {
     width: 216px;
     height: 52px;
     font-size: 16px;
@@ -374,16 +374,43 @@
     margin-right: 40px;
     float: right;
 
-    @include tablet{
-      width: 156px;
-    height: 52px;
-    font-size: 16px;
+    //hidden element
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+    @keyframes cssAnimation {
+      to {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+      }
     }
 
-    @include mobile{
+    @-webkit-keyframes cssAnimation {
+      to {
+        width: 0;
+        height: 0;
+        visibility: hidden;
+      }
+    }
+
+    @include tablet {
       width: 156px;
-    height: 52px;
-    font-size: 16px;
+      height: 52px;
+      font-size: 16px;
+    }
+
+    @include mobile {
+      width: 116px;
+      height: 42px;
+      font-size: 13px;
     }
   }
 }
