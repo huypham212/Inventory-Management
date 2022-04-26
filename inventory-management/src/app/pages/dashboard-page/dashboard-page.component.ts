@@ -7,6 +7,7 @@ import inventoryData from '../../data/data.json';
 import { UpdateModalComponent } from './../../components/update-modal/update-modal.component';
 import { DeleteModalComponent } from './../../components/delete-modal/delete-modal.component';
 import { ModalAddComponent } from './../../components/modal-add/modal-add.component';
+import { Router } from '@angular/router';
 
 interface Data {
   id: number;
@@ -53,7 +54,7 @@ export class DashboardPageComponent implements OnInit {
   // ];
   result: defineDataCsv[] = [];
 
-  constructor(private matDialog: MatDialog) {
+  constructor(private matDialog: MatDialog, private router: Router) {
     this.config = {
       itemsPerPage: 10,
       currentPage: 1,
@@ -178,7 +179,7 @@ export class DashboardPageComponent implements OnInit {
     // console.log(id);
     // // console.table(this.data.find((element) => element.id === id));
     // return this.data.find((element) => element.id === id);
-    // this.router.navigate(['/detail-page', id]);
+    this.router.navigate(['/detail-page', id]);
   };
 
   onAdd = () => {

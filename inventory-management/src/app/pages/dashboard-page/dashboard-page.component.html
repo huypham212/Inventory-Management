@@ -90,12 +90,12 @@
                         <i class="bx bxs-trash dashboard__table--col--item--trash"></i>
                     </button>
                 </td>
-                <td [routerLink]="['/detail-page', item.id]">
+                <td>
                     {{ item.name_product }}
                 </td>
-                <td [routerLink]="['/detail-page', item.id]">{{ item.amount }}</td>
-                <td [routerLink]="['/detail-page', item.id]">{{ item.createBy }}</td>
-                <td [routerLink]="['/detail-page', item.id]">
+                <td>{{ item.amount }}</td>
+                <td>{{ item.createBy }}</td>
+                <td>
                     {{ convertTimestampsToString(item.createAt) }}
                 </td>
             </tr>
