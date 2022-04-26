@@ -33,9 +33,11 @@
             <p>
               <strong>{{ datas.amount }}</strong>
             </p>
-            <br />
-            <p>
-              <strong>{{ datas.detail }}</strong>
+            <p *ngIf="datas.description !==''">
+              <strong>{{ datas.description }}</strong>
+            </p>
+            <p *ngIf="datas.description ===''" style="color: #e0e0e0">
+              <i>Không có Thông Tin</i>
             </p>
             <p>
               <strong>{{ datas.brand }}</strong>
@@ -46,7 +48,7 @@
             <p>
               <strong>{{ datas.createBy }}</strong>
             </p>
-            <p>18/4/2022 03 30:00CH</p>
+            <p><strong>{{convertTimestampsToString(datas.createAt)}}</strong></p>
             <p style="color: #e0e0e0"><i>Không có Thông Tin</i></p>
             <p style="color: #e0e0e0"><i>Không có Thông Tin</i></p>
           </div>

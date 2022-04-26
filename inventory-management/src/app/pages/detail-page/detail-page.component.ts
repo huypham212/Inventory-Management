@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { getDateString } from 'src/app/services';
 import dataa from '../../data/data.json';
 @Component({
   selector: 'app-detail-page',
@@ -10,7 +11,7 @@ export class DetailPageComponent implements OnInit {
   // datas: object[] = [];
   datas: any;
   id: any;
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     // this.route.params.subscribe((params) => {
@@ -42,5 +43,9 @@ export class DetailPageComponent implements OnInit {
         // option.name_product.toLowerCase().includes(search.toLowerCase())
       )
     );
+  };
+
+  convertTimestampsToString = (value: number) => {
+    return getDateString(value);
   };
 }
