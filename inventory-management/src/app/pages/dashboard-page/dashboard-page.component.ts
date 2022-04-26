@@ -85,8 +85,11 @@ export class DashboardPageComponent implements OnInit {
       return;
     }
 
-    this.suggestion = [];
+    this.valueSortDate = 1;
     this.data = inventoryData;
+    this.data = this.onDateSort();
+    this.suggestion = [];
+
   };
 
   convertTimestampsToString = (value: number) => {
@@ -169,6 +172,8 @@ export class DashboardPageComponent implements OnInit {
         this.valueSortDate = 0;
         break;
     }
+
+    return this.data;
   };
 
   onRowClick = (id: number) => {
