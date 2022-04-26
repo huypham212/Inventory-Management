@@ -80,7 +80,7 @@ export class DashboardPageComponent implements OnInit {
   onSearch = (search: string) => {
     if (search !== '') {
       this.suggestion = this.initialSuggestion.filter((option) =>
-        option.toLowerCase().includes(search.toLowerCase())
+        option.toLowerCase().includes(search.trim().toLowerCase())
       );
       return;
     }
@@ -99,7 +99,7 @@ export class DashboardPageComponent implements OnInit {
       this.result = [];
       inventoryData.forEach((element) => {
         if (
-          element['name_product'].toLowerCase().includes(search.toLowerCase())
+          element['name_product'].toLowerCase().includes(search.trim().toLowerCase())
         ) {
           this.data.push(element);
         }
