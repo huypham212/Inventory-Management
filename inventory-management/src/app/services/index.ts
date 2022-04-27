@@ -20,3 +20,29 @@ export const getDateString = (datetime: number) => {
     return arrDatetime[0] + " " + arrDatetime[1] + " " + arrDatetime[2];
 
 }
+
+
+// Define API
+const baseURL = "https://localhost:5001/api/"
+
+//BrandsAPI
+export const getAllBrands = baseURL + "Brands"
+export const getBrandsByCatId = baseURL + "Brands/"
+export const getBrandsByBrandId = baseURL + "Brands/name/"
+
+//CategoriesAPI
+export const getAllCategories = baseURL + "Categories"
+export const getCategoriesByCatId = baseURL + "Categories/name/"
+export const getCategoriesByBrandId = baseURL + "Categories/"
+
+//ProductAPI
+export const getAllProduct = baseURL + "Products"
+export const getProductById = baseURL + "Products/"
+export const postProduct = baseURL + "Products"
+export const putProduct = baseURL + "Products/"
+export const putDelProduct = baseURL + "Products/delete/"
+export const deleteProduct = baseURL + "Products/"
+
+//LoginAPI
+export const postLogin = baseURL + "Users/login"
+export const getUserName = baseURL + "Users/name"

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { postLogin } from 'src/app/services';
 
 @Component({
   selector: 'cf-login',
@@ -28,8 +29,7 @@ export class LoginComponent implements OnInit {
       formData.append('UserName', this.loginForm.get('UserName')?.value);
       formData.append('Password', this.loginForm.get('Password')?.value);
 
-      let url = "https://localhost:5001/api/Users/login";
-      this.http.post(url, formData).subscribe((data) => {
+      this.http.post(postLogin, formData).subscribe((data) => {
         this.result = [data];
         if (this.result[0].isSuccessed) {
           localStorage.setItem("token", this.result[0].resultObj)
