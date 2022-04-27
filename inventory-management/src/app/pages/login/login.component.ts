@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
       this.http.post(url, formData).subscribe((data) => {
         this.result = [data];
         if (this.result[0].isSuccessed) {
+          localStorage.setItem("token", this.result[0].resultObj)
           this.router.navigate(['/dashboard-page']);
         }
       });

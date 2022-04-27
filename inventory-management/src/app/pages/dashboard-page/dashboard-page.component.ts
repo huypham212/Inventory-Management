@@ -74,7 +74,7 @@ export class DashboardPageComponent implements OnInit {
         createAt: getDateString(element.createAt),
       });
     });
-    console.log(this.token)
+    console.log(localStorage.getItem("token"))
   }
 
   pageChanged(event: any) {
