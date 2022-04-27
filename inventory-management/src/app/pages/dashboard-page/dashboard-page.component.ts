@@ -90,6 +90,7 @@ export class DashboardPageComponent implements OnInit {
     this.data = this.onDateSort();
     this.suggestion = [];
     this.config.totalItems = this.data.length;
+    this.config.currentPage = 1;
   };
 
   convertTimestampsToString = (value: number) => {
