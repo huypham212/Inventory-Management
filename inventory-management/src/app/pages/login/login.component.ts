@@ -1,7 +1,7 @@
-import { AuthenticationService } from '../login/service/authentication/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { SignInData } from '../login/model/signInData';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cf-login',
@@ -9,32 +9,32 @@ import { SignInData } from '../login/model/signInData';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+  result: any[] = [];
 
-  isFormValid = false;
-  areCredentialsInvalid = false;
-
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private router: Router, private http: HttpClient, public formBuilder: FormBuilder) {
+    this.loginForm = this.formBuilder.group({
+      UserName: [''],
+      Password: ['']
+    });
+  }
 
   ngOnInit() {
   }
 
-  onSubmit(signInForm: NgForm) {
-    console.log(signInForm.value)
-    if (!signInForm.valid) {
-      this.isFormValid = true;
-      this.areCredentialsInvalid = false;
-      return;
-    }
-    this.checkCredentials(signInForm);
+  onSubmit() {
+    if (this.loginForm.valid) {
+      var formData: any = new FormData();
+      formData.append('UserName', this.loginForm.get('UserName')?.value);
+      formData.append('Password', this.loginForm.get('Password')?.value);
 
-  }
-
-  private checkCredentials(signInForm: NgForm) {
-    console.log(signInForm.value)
-    const signInData = new SignInData(signInForm.value.login, signInForm.value.password);
-    if (!this.authenticationService.authenticate(signInData)) {
-      this.isFormValid = false;
-      this.areCredentialsInvalid = true;
+      let url = "https://localhost:5001/api/Users/login";
+      this.http.post(url, formData).subscribe((data) => {
+        this.result = [data];
+        if (this.result[0].isSuccessed) {
+          this.router.navigate(['/dashboard-page']);
+        }
+      });
     }
   }
 }

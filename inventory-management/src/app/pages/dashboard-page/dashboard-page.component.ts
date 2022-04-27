@@ -11,7 +11,7 @@ import inventoryData from '../../data/data.json';
 import { UpdateModalComponent } from './../../components/update-modal/update-modal.component';
 import { DeleteModalComponent } from './../../components/delete-modal/delete-modal.component';
 import { ModalAddComponent } from './../../components/modal-add/modal-add.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 interface Data {
   id: number;
@@ -40,6 +40,7 @@ interface defineDataCsv {
 export class DashboardPageComponent implements OnInit {
   search = '';
   messageExport = '';
+  token = '';
   config: any;
   total = inventoryData.length;
   valueSortName = 0;
@@ -50,7 +51,8 @@ export class DashboardPageComponent implements OnInit {
   dataTmp: Data[] = [];
   result: defineDataCsv[] = [];
 
-  constructor(private matDialog: MatDialog, private router: Router) {
+
+  constructor(private matDialog: MatDialog, private route: ActivatedRoute, private router: Router) {
     this.config = {
       itemsPerPage: 10,
       currentPage: 1,
@@ -60,6 +62,7 @@ export class DashboardPageComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(Math.floor(Date.now() / 1000));
+    this.token = this.route.snapshot.params.toString();
     this.messageExport = '';
     inventoryData.forEach((element) => {
       this.initialSuggestion.push(element.name_product);
@@ -71,6 +74,7 @@ export class DashboardPageComponent implements OnInit {
         createAt: getDateString(element.createAt),
       });
     });
+    console.log(this.token)
   }
 
   pageChanged(event: any) {
