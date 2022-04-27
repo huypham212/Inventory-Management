@@ -95,12 +95,12 @@
           </button>
         </td>
         <td>
-          {{ item.name_product }}
+          {{ item.name }}
         </td>
-        <td>{{ item.amount }}</td>
-        <td>{{ item.createBy }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.userCreate }}</td>
         <td>
-          {{ convertTimestampsToString(item.createAt) }}
+          {{ item.createDate }}
         </td>
       </tr>
     </tbody>

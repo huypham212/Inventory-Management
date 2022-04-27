@@ -1,35 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import {
-  MatDialogRef,
-  MatDialog,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
-import { getDateString } from 'src/app/services';
-import inventoryData from '../../data/data.json';
+import { getDateString, getAllProduct } from 'src/app/services';
 import { UpdateModalComponent } from './../../components/update-modal/update-modal.component';
 import { DeleteModalComponent } from './../../components/delete-modal/delete-modal.component';
 import { ModalAddComponent } from './../../components/modal-add/modal-add.component';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 interface Data {
   id: number;
-  name_product: string;
-  amount: number;
-  createBy: string;
-  createAt: number;
-  updateBy: string;
-  updateAt: string;
-  brand: string;
-  type: string;
+  name: string;
+  quantity: number;
+  userCreate: string;
+  createDate: number;
+  userUpdate: string;
+  updateDate: string;
+  brandId: string;
+  categoryId: string;
 }
 
 interface defineDataCsv {
-  name_product: string;
-  amount: number;
-  createBy: string;
-  createAt: string;
+  name: string;
+  quantity: number;
+  userCreate: string;
+  createDate: string;
 }
 
 @Component({
@@ -38,21 +33,22 @@ interface defineDataCsv {
   styleUrls: ['./dashboard-page.component.scss'],
 })
 export class DashboardPageComponent implements OnInit {
-  search = '';
-  messageExport = '';
-  token = '';
-  config: any;
-  total = inventoryData.length;
-  valueSortName = 0;
-  valueSortDate = 0;
-  initialSuggestion: string[] = [];
-  suggestion: string[] = [];
-  data: Data[] = inventoryData;
-  dataTmp: Data[] = [];
-  result: defineDataCsv[] = [];
+  search = ''
+  messageExport = ''
+  pathQuery = ''
+  config: any
+  total = 0
+  valueSortName = 0
+  valueSortDate = 0
+  initialSuggestion: string[] = []
+  suggestion: string[] = []
+  data: any[] = []
+  dataTmp: any[] = []
+  exportResult: defineDataCsv[] = []
+  resResult: any[] = []
 
 
-  constructor(private matDialog: MatDialog, private route: ActivatedRoute, private router: Router) {
+  constructor(private http: HttpClient, private matDialog: MatDialog, private router: Router) {
     this.config = {
       itemsPerPage: 10,
       currentPage: 1,
@@ -61,60 +57,71 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log(Math.floor(Date.now() / 1000));
-    this.token = this.route.snapshot.params.toString();
-    this.messageExport = '';
-    inventoryData.forEach((element) => {
-      this.initialSuggestion.push(element.name_product);
+    this.messageExport = ''
+    this.http.get(getAllProduct, {
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      }
+    }).subscribe((res) => {
+      this.resResult = [res]
 
-      this.result.push({
-        name_product: element.name_product,
-        amount: element.amount,
-        createBy: element.createBy,
-        createAt: getDateString(element.createAt),
-      });
-    });
-    console.log(localStorage.getItem("token"))
+      this.data = this.resResult[0].items
+      this.total = this.data.length;
+      this.data.forEach((element) => {
+        this.initialSuggestion.push(element.name)
+      })
+    })
   }
 
   pageChanged(event: any) {
-    this.config.currentPage = event;
+    this.config.currentPage = event
   }
 
   onSearch = (search: string) => {
     if (search !== '') {
+      console.log(search)
       this.suggestion = this.initialSuggestion.filter((option) =>
         option.toLowerCase().includes(search.trim().toLowerCase())
       );
-      return;
+      return
     }
 
-    this.valueSortDate = 1;
-    this.data = inventoryData;
-    this.data = this.onDateSort();
-    this.suggestion = [];
-    this.config.totalItems = this.data.length;
-    this.config.currentPage = 1;
+    this.http.get(getAllProduct, {
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      }
+    }).subscribe((res) => {
+      this.resResult = [res]
+      this.data = this.resResult[0].items
+
+      this.valueSortDate = 1
+      this.data = this.onDateSort()
+      this.suggestion = []
+
+      this.config.totalItems = this.data.length
+      this.config.currentPage = 1
+    })
   };
 
   convertTimestampsToString = (value: number) => {
-    return getDateString(value);
+    return getDateString(value)
   };
 
   onKeyPress = (key: any, search: string) => {
     if (key.keyCode === 13) {
-      this.data = [];
-      this.result = [];
-      inventoryData.forEach((element) => {
-        if (
-          element['name_product']
-            .toLowerCase()
-            .includes(search.trim().toLowerCase())
-        ) {
-          this.data.push(element);
+      this.search = search
+      this.pathQuery = "?Keyword=" + search
+
+      this.http.get(getAllProduct + this.pathQuery, {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token")
         }
-        this.config.totalItems = this.data.length;
-      });
+      }).subscribe((res) => {
+        this.resResult = [res]
+
+        this.data = this.resResult[0].items
+        this.config.totalItems = this.data.length
+      })
     }
   };
 
@@ -126,40 +133,85 @@ export class DashboardPageComponent implements OnInit {
       showTitle: true,
       noDownload: false,
       headers: ['Tên sản phẩm', 'Số lượng', 'Người tạo', 'Thời gian tạo'],
-    };
+    }
 
-    this.result = [];
+    this.exportResult = [];
     this.data.forEach((element) => {
-      this.result.push({
-        name_product: element.name_product,
-        amount: element.amount,
-        createBy: element.createBy,
-        createAt: getDateString(element.createAt),
-      });
-    });
-    new AngularCsv(this.result, 'Data File', options);
-    return (this.messageExport = 'Xuất thành công');
+      this.exportResult.push({
+        name: element.name,
+        quantity: element.quantity,
+        userCreate: element.userCreate,
+        createDate: element.createDate,
+      })
+    })
+    new AngularCsv(this.exportResult, 'Data File', options)
+    return (this.messageExport = 'Xuất thành công')
   };
 
   onNameSort = () => {
     switch (this.valueSortName) {
       case 0:
-        this.data = this.data.sort((a, b) =>
-          a.name_product < b.name_product ? -1 : 1
-        );
-        this.valueSortName++;
+        console.log(this.valueSortName);
+        if (this.search === "") {
+          this.pathQuery = "?SortOrder=name_asc"
+        }
+        else {
+          this.pathQuery = "?Keyword=" + this.search + "&SortOrder=name_asc"
+        }
+
+        this.http.get(getAllProduct + this.pathQuery, {
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        }).subscribe((res) => {
+          this.resResult = [res]
+
+          this.data = this.resResult[0].items
+        })
+
+        this.valueSortName++
         break;
       case 1:
-        this.data = this.data.sort((a, b) =>
-          a.name_product > b.name_product ? -1 : 1
-        );
-        this.valueSortName++;
+        console.log(this.valueSortName);
+        if (this.search === "") {
+          this.pathQuery = "?SortOrder=name_desc"
+        }
+        else {
+          this.pathQuery = "?Keyword=" + this.search + "&SortOrder=name_desc"
+        }
+
+        this.http.get(getAllProduct + this.pathQuery, {
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        }).subscribe((res) => {
+          this.resResult = [res]
+
+          this.data = this.resResult[0].items
+        })
+
+        this.valueSortName++
         break;
       case 2:
-        this.data = this.data.sort((a, b) =>
-          a.createAt > b.createAt ? -1 : 1
-        );
-        this.valueSortName = 0;
+        console.log(this.valueSortName);
+        if (this.search === "") {
+          this.pathQuery = "?SortOrder=date_desc"
+        }
+        else {
+          this.pathQuery = "?Keyword=" + this.search + "&SortOrder=date_desc"
+        }
+
+        this.http.get(getAllProduct + this.pathQuery, {
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        }).subscribe((res) => {
+          this.resResult = [res]
+
+          this.data = this.resResult[0].items
+        })
+
+        this.valueSortName = 0
         break;
     }
   };
@@ -167,16 +219,44 @@ export class DashboardPageComponent implements OnInit {
   onDateSort = () => {
     switch (this.valueSortDate) {
       case 0:
-        this.data = this.data.sort((a, b) =>
-          a.createAt < b.createAt ? -1 : 1
-        );
-        this.valueSortDate++;
+        if (this.search === "") {
+          this.pathQuery = "?SortOrder=date_asc"
+        }
+        else {
+          this.pathQuery = "?Keyword=" + this.search + "&SortOrder=date_asc"
+        }
+
+        this.http.get(getAllProduct + this.pathQuery, {
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        }).subscribe((res) => {
+          this.resResult = [res]
+
+          this.data = this.resResult[0].items
+        })
+
+        this.valueSortDate++
         break;
       case 1:
-        this.data = this.data.sort((a, b) =>
-          a.createAt > b.createAt ? -1 : 1
-        );
-        this.valueSortDate = 0;
+        if (this.search === "") {
+          this.pathQuery = "?SortOrder=date_desc"
+        }
+        else {
+          this.pathQuery = "?Keyword=" + this.search + "&SortOrder=date_desc"
+        }
+
+        this.http.get(getAllProduct + this.pathQuery, {
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        }).subscribe((res) => {
+          this.resResult = [res]
+
+          this.data = this.resResult[0].items
+        })
+
+        this.valueSortDate = 0
         break;
     }
 
@@ -184,21 +264,21 @@ export class DashboardPageComponent implements OnInit {
   };
 
   onRowClick = (id: number) => {
-    this.router.navigate(['/detail-page', id]);
+    this.router.navigate(['/detail-page', id])
   };
 
   onAdd = () => {
-    this.matDialog.open(ModalAddComponent);
+    this.matDialog.open(ModalAddComponent)
   };
 
   onUpdate = (id: number) => {
-    console.log(id);
-    this.dataTmp = this.data.filter((element) => element.id === id);
-    console.log(this.dataTmp);
-    this.matDialog.open(UpdateModalComponent, { data: this.dataTmp });
+    // console.log(id);
+    // this.dataTmp = this.data.filter((element) => element.id === id)
+    // console.log(this.dataTmp)
+    this.matDialog.open(UpdateModalComponent)
   };
 
   onDelete = () => {
-    this.matDialog.open(DeleteModalComponent);
+    this.matDialog.open(DeleteModalComponent)
   };
 }
