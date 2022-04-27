@@ -89,7 +89,6 @@ export class DashboardPageComponent implements OnInit {
     this.data = inventoryData;
     this.data = this.onDateSort();
     this.suggestion = [];
-
   };
 
   convertTimestampsToString = (value: number) => {
@@ -102,10 +101,13 @@ export class DashboardPageComponent implements OnInit {
       this.result = [];
       inventoryData.forEach((element) => {
         if (
-          element['name_product'].toLowerCase().includes(search.trim().toLowerCase())
+          element['name_product']
+            .toLowerCase()
+            .includes(search.trim().toLowerCase())
         ) {
           this.data.push(element);
         }
+        this.config.totalItems = this.data.length;
       });
     }
   };
@@ -117,19 +119,18 @@ export class DashboardPageComponent implements OnInit {
       showLabels: true,
       showTitle: true,
       noDownload: false,
-      headers: ['Tên sản phẩm', 'Số lượng', 'Người tạo', 'Thời gian tạo']
+      headers: ['Tên sản phẩm', 'Số lượng', 'Người tạo', 'Thời gian tạo'],
     };
 
     this.result = [];
-    this.data.forEach(element => {
+    this.data.forEach((element) => {
       this.result.push({
         name_product: element.name_product,
         amount: element.amount,
         createBy: element.createBy,
         createAt: getDateString(element.createAt),
       });
-
-    })
+    });
     new AngularCsv(this.result, 'Data File', options);
     return (this.messageExport = 'Xuất thành công');
   };
