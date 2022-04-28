@@ -72,7 +72,7 @@ margin-left:60px;
   .boder {
     border-color: #a0a0a0;
 
-    height: 500px;
+    height: 600px;
   }
   .col-2 > p {
     font-weight: 100;
@@ -118,5 +118,31 @@ margin-left:60px;
   width :90px;
   padding-bottom:23px;
   
+  }
+}
+@media only screen and (max-width: 360px) {
+ 
+  .buttontext-2 {
+    background-color: #1e90ff;
+    padding: 9.5px 35px;
+    color: white;
+    border-radius: 5px;
+    margin-top: -19px;
+    margin-left:-1px;
+    position: absolute;
+  }
+  .buttontext {
+    position: absolute;
+    background-color: #1e90ff;
+    padding: 9px 10px;
+    color: white;
+    border-radius: 5px;
+    margin-top: -18px;
+    margin-left:-1px;
+  }
+  .boder {
+    border-color: #a0a0a0;
+
+    height: 650px;
   }
 }

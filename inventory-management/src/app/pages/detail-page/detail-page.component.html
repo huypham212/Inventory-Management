@@ -9,6 +9,13 @@
     margin-top:30px;
     color :#1e90ff;
   }
+  .text{
+    font-size: 17px;
+    color: black;
+    background-color: white;
+    font-family:roboto;
+    font-weight: 600;
+  }
  </style>
 <app-header></app-header>
 <div class="warrap">
@@ -22,23 +29,24 @@
             <tr>
               <td class="list-item">Tên Sản Phẩm</td>
              
-              <td class="list-item">{{ datas.name }}</td>
+              <td class="list-item"><strong>{{ datas.resultObj.name }}</strong></td>
             </tr>
             <tr>
               <td class="list-item">Số Lượng</td>
               
-              <td class="list-item-2">{{ datas.quantity }}</td>
+              <td class="list-item"><strong>{{ datas.resultObj.quantity }}</strong></td>
             </tr>
             <tr>
               <td class="list-item">Mô Tả</td>
               
               <td class="list-item">
-                <textarea
-                  *ngIf="datas.description; else els"
+                <textarea class="text"
+                disabled
+                  *ngIf="datas.resultObj.description; else els"
                   style="border: none; resize: none"
                   cols="30"
-                  rows="10"
-                  >{{ datas.description }}</textarea
+                  rows="1"
+                  >{{ datas.resultObj.description }}</textarea
                 >
                 <ng-template #els>
                   <i style="color: gray">Không có Thông Tin</i>
@@ -48,32 +56,32 @@
             <tr>
               <td class="list-item">Hãng</td>
              
-              <td class="list-item">{{ datas.brandName }}</td>
+              <td class="list-item"><strong>{{ datas.resultObj.brandName }}</strong></td>
             </tr>
             <tr>
               <td class="list-item">Loại Sản Phẩm</td>
             
-              <td class="list-item">{{ datas.categoryName }}</td>
+              <td class="list-item"><strong>{{ datas.resultObj.categoryName }}</strong></td>
             </tr>
             <tr>
               <td class="list-item">Người Tạo</td>
               
-              <td class="list-item">{{ datas.userCreate }}</td>
+              <td class="list-item"><strong>{{ datas.resultObj.userCreate }}</strong></td>
             </tr>
             <tr>
               <td class="list-item">Thời Gian</td>
               
-              <td class="list-item">{{ datas.createDate }}</td>
+              <td class="list-item"><strong>{{ datas.resultObj.createDate }}</strong></td>
             </tr>
             <tr>
               <td class="list-item">Người Cập Nhật</td>
               
-              <td class="list-item"><i>Không có Thông Tin</i></td>
+              <td class="list-item" style="color: gray"><i>Không có Thông Tin</i></td>
             </tr>
             <tr>
               <td class="list-item">Thời Gian Cập Nhật</td>
              
-              <td class="list-item"><i>Không có Thông Tin</i></td>
+              <td class="list-item"style="color: gray"><i>Không có Thông Tin</i></td>
             </tr>
             <tr>
               <td class="list-item">  <a href="#" class="buttoncn"></a>
