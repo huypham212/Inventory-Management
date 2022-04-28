@@ -4,9 +4,16 @@
     <div class="header__container">
       <div class="header__left">
         <div class="header__left--input">
-          <input type="text" [(ngModel)]="search" (ngModelChange)="onSearch(search)"
-            (keypress)="onKeyPress($event, search)" matInput [matAutocomplete]="auto" #trigger="matAutocompleteTrigger"
-            (keydown.enter)="trigger.closePanel()" />
+          <input
+            type="text"
+            [(ngModel)]="search"
+            (ngModelChange)="onSearch(search)"
+            (keypress)="onKeyPress($event, search)"
+            matInput
+            [matAutocomplete]="auto"
+            #trigger="matAutocompleteTrigger"
+            (keydown.enter)="trigger.closePanel()"
+          />
           <div class="header__left--icon">
             <i class="bx bx-search"></i>
           </div>
@@ -27,7 +34,9 @@
         <div class="header__right--img">
           <i class="fas fa-download" style="color: gray"></i>
         </div>
-        <a class="header__right--link" style="color: gray; cursor: context-menu">Export</a>
+        <a class="header__right--link" style="color: gray; cursor: context-menu"
+          >Export</a
+        >
       </div>
     </div>
   </div>
@@ -49,9 +58,13 @@
         </th>
       </thead>
       <tbody>
-        <tr class="dashboard__table--col--item" style="height: 53px" *ngFor="
+        <tr
+          class="dashboard__table--col--item"
+          style="height: 53px"
+          *ngFor="
             let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] | paginate: config
-          ">
+          "
+        >
           <td>
             <!-- <button>
               <i class="bx bxs-pencil dashboard__table--col--item--pencil"></i>
@@ -85,12 +98,15 @@
       </th>
     </thead>
     <tbody>
-      <tr *ngFor="let item of data | paginate: config" (dblclick)="onRowClick(item.id)">
+      <tr
+        *ngFor="let item of data | paginate: config"
+        (dblclick)="onRowClick(item.id)"
+      >
         <td>
           <button (click)="onUpdate(item.id)">
             <i class="bx bxs-pencil dashboard__table--col--item--pencil"></i>
           </button>
-          <button (click)="onDelete()">
+          <button (click)="onDelete(item.id)">
             <i class="bx bxs-trash dashboard__table--col--item--trash"></i>
           </button>
         </td>
@@ -100,24 +116,31 @@
         <td>{{ item.quantity }}</td>
         <td>{{ item.userCreate }}</td>
         <td>
-          {{ item.createDate }}
+          {{ changeFormatDate(item.createDate) }}
         </td>
       </tr>
     </tbody>
   </table>
 
-  <pagination-template *ngIf="data.length > 10" #p="paginationApi" [id]="config.id"
-    (pageChange)="config.currentPage = $event" class="dashboard__pagination">
+  <pagination-template
+    *ngIf="data.length > 10"
+    #p="paginationApi"
+    [id]="config.id"
+    (pageChange)="config.currentPage = $event"
+    class="dashboard__pagination"
+  >
     <div class="dashboard__pagination--custom">
       <div class="dashboard__pagination--custom--first dashboard__pagination--custom--btn"
         [class.fade]="p.isFirstPage()" (click)="p.setCurrent(1)">
         <span>
           <<</span>
       </div>
-      <div class="pagination-previous dashboard__pagination--custom--btn" [class.disabled]="p.isFirstPage()"
-        (click)="p.previous()">
-        <span>
-          < </span>
+      <div
+        class="pagination-previous dashboard__pagination--custom--btn"
+        [class.disabled]="p.isFirstPage()"
+        (click)="p.previous()"
+      >
+        <span> < </span>
       </div>
       <div class="page-number" *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value"
         (click)="p.setCurrent(page.value)" >
@@ -127,14 +150,20 @@
         </div>
       </div>
       <div></div>
-      <div class="pagination-next dashboard__pagination--custom--last" [class.disabled]="p.isLastPage()">
+      <div
+        class="pagination-next dashboard__pagination--custom--last"
+        [class.disabled]="p.isLastPage()"
+      >
         <span *ngIf="!p.isLastPage(); else elseBlock" (click)="p.next()">
           >
         </span>
         <ng-template #elseBlock><span> > </span></ng-template>
       </div>
-      <div class="pagination-last dashboard__pagination--custom--last" [class.fade]="p.isLastPage()"
-        (click)="p.setCurrent(p.getLastPage())">
+      <div
+        class="pagination-last dashboard__pagination--custom--last"
+        [class.fade]="p.isLastPage()"
+        (click)="p.setCurrent(p.getLastPage())"
+      >
         >>
       </div>
     </div>
@@ -144,4 +173,3 @@
   </div>
 </div>
 <app-footer></app-footer>
-
