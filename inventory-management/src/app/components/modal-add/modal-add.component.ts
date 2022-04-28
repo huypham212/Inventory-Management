@@ -1,10 +1,11 @@
+import { Router } from '@angular/router';
+import { postProduct } from './../../services/index';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { getAllBrands, getUserName, getProductById, getAllCategories, getCategoriesByBrandId } from 'src/app/services';
 
-import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-add',
@@ -17,19 +18,15 @@ export class ModalAddComponent implements OnInit {
   brands: any
   categories: any
   selected:number
+  brandId: number
 
-  constructor(private http: HttpClient, private matdialog: MatDialog, public formBuilder: FormBuilder) {
+  constructor(private http: HttpClient, private matdialog: MatDialog, public formBuilder: FormBuilder, private route: Router) {
     this.addForm = this.formBuilder.group({
-      name : [''],
-      quantity: [0],
-      description:[''],
-      userUpdate:[''],
-      updateDate:[''],
-      status:[''],
-      userCreate:[''],
-      createDate:[''],
-      categoryId:[1],
-      brandID:[1]
+      Name : [''],
+      Quantity: [0],
+      Description:[''],
+      CategoryId:[1],
+      BrandId:[1]
     })
   }
 
@@ -46,17 +43,7 @@ export class ModalAddComponent implements OnInit {
       console.log("brand: ", res)
     })
 
-    // get categories
-    
 
-    //get username
-    // this.http.get(getUserName,{
-    //   headers: {
-    //     "Authorization": "Bearer " + localStorage.getItem("token")
-    //   }
-    // }).subscribe((res) => {
-    //   console.log("username: ", res)
-    // })
 
   }
   
@@ -64,28 +51,31 @@ export class ModalAddComponent implements OnInit {
   onAdd = () => {
     if(this.addForm.valid){
       var formData : any = new FormData();
-      formData.append('name', this.addForm.get('name')?.value);
-      formData.append('quantity', this.addForm.get('quantity')?.value);
-      formData.append('description', this.addForm.get('description')?.value);
-      formData.append('updateDate', '');
-      formData.append('userUpdate', '');
-      formData.append('status', 0);
-      formData.append('userCreate', this.userName);
-      formData.append('createDate', new Date().getUTCDate().toString());
-      formData.append('categoryId', this.addForm.get('categoryId')?.value)
-      formData.append('brandID', 1)
+      formData.append('Name', this.addForm.get('Name')?.value);
+      formData.append('Quantity', this.addForm.get('Quantity')?.value);
+      formData.append('Description', this.addForm.get('Description')?.value);
+      formData.append('CategoryId', this.addForm.get('CategoryId')?.value)
+      formData.append('BrandId', this.brandId)
     }
 
-    console.log(formData);
+    this.http.post(postProduct, formData, {
+      headers:{
+        "Authorization": "Bearer " + localStorage.getItem('token')
+      }
+    }).subscribe((res) => {
+      console.log(res)
+      this.closePopup();
+      this.reloadComponent();
+    })
     
    }
 
 
-   onBrandChange = (id:number) => {
+   onBrandChange = (id:any) => {
     // console.log(this.addForm.get('brand'))
-    console.log(id)
-    
-    this.http.get(getCategoriesByBrandId + id, {
+    console.log(typeof(id.target.value))
+    this.brandId = id.target.value
+    this.http.get(getCategoriesByBrandId + id.target.value, {
       headers: {
         "Authorization": "Bearer " + localStorage.getItem("token")
       }
@@ -94,5 +84,16 @@ export class ModalAddComponent implements OnInit {
       console.log("categories: ", this.categories)
     })
    }
+
+   reloadComponent() {
+    let currentUrl = this.route.url;
+    this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.route.onSameUrlNavigation = 'reload';
+    this.route.navigate([currentUrl]);
+  }
+
+  closePopup() {
+    this.matdialog.closeAll();
+  }
    
 }

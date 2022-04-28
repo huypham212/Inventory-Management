@@ -5,33 +5,33 @@
     <div class="heading-add blue-color">
         THÊM MỚI SẢN PHẨM
     </div>
-    <form>
+    <form [formGroup]="addForm" (ngSubmit)="onAdd()">
         <div class="fm">
             <div class="fm-name blue-color">Tên sản phẩm<span class="fm-name-redstar"> *</span>
             </div>
             <div class="fm-input">
-                <input  type="text" name="" id="name" formControlName="name"required>
+                <input  type="text" name="" id="name" formControlName="name" formControlName="Name" required>
             </div>
         </div>
         <div class="fm">
             <div class="fm-name blue-color">Số lượng<span class="fm-name-redstar"> *</span>
             </div>
             <div class="fm-input">
-                 <input type="number" name="" id="number" formControlName="number"required>
+                 <input type="number" name="" id="number" formControlName="number"  formControlName="Quantity" required>
             </div>
         </div>
         <div class="fm">
             <div class="fm-name blue-color">Mô tả
             </div>
             <div class="fm-input">
-                <textarea name="mess" id="mess" maxlength="4000" formControlName="mess" ></textarea>
+                <textarea name="mess" id="mess" maxlength="4000" formControlName="Description" ></textarea>
             </div>
         </div>
         <div class="fm">
             <div class="fm-name blue-color">Hãng<span class="fm-name-redstar"> *</span>
             </div>
             <div class="fm-input">
-                <select name="fm-company" id="fm-company" (ngModelChange)="onBrandChange($event)" [ngModel]="selected">
+                <select name="fm-company" id="fm-company" (change)="onBrandChange($event)" >
                     <option *ngFor="let brand of brands" [value]="brand.id">{{brand.name}}</option>
                 </select>
             </div>
@@ -40,7 +40,7 @@
             <div class="fm-name blue-color">Loại sản phẩm<span class="fm-name-redstar"> *</span>
             </div>
             <div class="fm-input">
-                <select name="fm-type-product" id="fm-type-product" >
+                <select name="fm-type-product" id="fm-type-product" formControlName="CategoryId" >
                     <option *ngFor="let item of categories" value="{{item.id}}">{{item.name}}</option>
                 </select>
             </div>
