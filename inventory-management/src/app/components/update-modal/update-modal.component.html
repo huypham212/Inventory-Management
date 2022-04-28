@@ -1,6 +1,6 @@
 <div class="add-dashboard">
   <div class="escape-icon">
-    <a href="dashboard-page" class="close-popup">&times;</a>
+    <a class="close-popup" (click)="closePopup()">&times;</a>
   </div>
   <div class="heading-add blue-color">CẬP NHẬT SẢN PHẨM</div>
   <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
@@ -47,8 +47,8 @@
       </div>
     </div>
     <div class="btn">
-      <button class="btn-detele">HUỶ</button>
-      <button class="btn-add">CẬP NHẬT</button>
+      <button class="btn-detele" (click)="closePopup()">HUỶ</button>
+      <button type="submit" value="update" class="btn-add">CẬP NHẬT</button>
     </div>
   </form>
 </div>

@@ -31,7 +31,7 @@ export class DeleteModalComponent implements OnInit {
         },
       })
       .subscribe((data) => {
-        console.log('xoa thanh cong');
+        console.log('Xóa thành công');
         this.closePopup();
         this.reloadComponent();
       });
@@ -43,7 +43,7 @@ export class DeleteModalComponent implements OnInit {
         Authorization: "Bearer " + localStorage.getItem('token')
       }
     }).subscribe((res) => {
-      console.log('xoa tạm thời thành công');
+      console.log('Xóa tạm thời thành công');
       this.closePopup();
       this.reloadComponent();
     })
