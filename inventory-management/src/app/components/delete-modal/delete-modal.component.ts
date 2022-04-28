@@ -20,7 +20,7 @@ export class DeleteModalComponent implements OnInit {
     this.id = data.id;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onDelete() {
     console.log(this.id);
@@ -38,20 +38,15 @@ export class DeleteModalComponent implements OnInit {
   }
 
   onDeleteTmp() {
-    console.log(this.id);
-    console.log(localStorage.getItem('token'));
-
-    this.http
-      .put(putDelProduct + this.id, {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
-        },
-      })
-      .subscribe((data) => {
-        console.log('xoa tam thoi thanh cong');
-        this.closePopup();
-        this.reloadComponent();
-      });
+    this.http.put(putDelProduct + this.id, "", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }).subscribe((res) => {
+      console.log('xoa tạm thời thành công');
+      this.closePopup();
+      this.reloadComponent();
+    })
   }
 
   reloadComponent() {
