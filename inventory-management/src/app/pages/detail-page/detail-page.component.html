@@ -66,9 +66,16 @@
             <tr>
               <td>Mô Tả</td>
               <td>
-                <textarea style="border: none" cols="30" rows="10">{{
-                  datas.description
-                }}</textarea>
+                <textarea
+                  *ngIf="datas.description; else els"
+                  style="border: none; resize: none"
+                  cols="30"
+                  rows="10"
+                  >{{ datas.description }}</textarea
+                >
+                <ng-template #els>
+                  <i style="color: gray">Không có Thông Tin</i>
+                </ng-template>
               </td>
             </tr>
             <tr>
