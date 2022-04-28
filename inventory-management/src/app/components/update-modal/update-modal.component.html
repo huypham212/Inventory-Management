@@ -31,8 +31,9 @@
         Hãng<span class="fm-name-redstar"> *</span>
       </div>
       <div class="fm-input">
-        <select name="fm-company" id="fm-company" (change)="onBrandChange($event)">
-          <option *ngFor="let brand of brands" [value]="brand.id">{{brand.name}}</option>
+        <select name="fm-company" id="fm-company" [value]="productBrandId" (change)="onBrandChange($event)">
+          <option *ngFor="let brand of brands" [value]="brand.id">
+            {{brand.name}}</option>
         </select>
       </div>
     </div>
@@ -41,7 +42,7 @@
         Loại sản phẩm<span class="fm-name-redstar"> *</span>
       </div>
       <div class="fm-input">
-        <select name="fm-type-product" id="fm-type-product" formControlName="CategoryId">
+        <select name="fm-type-product" id="fm-type-product" formControlName="CategoryId" [value]="productCategoryId">
           <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
         </select>
       </div>

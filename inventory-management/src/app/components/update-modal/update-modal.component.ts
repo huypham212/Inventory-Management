@@ -52,7 +52,7 @@ export class UpdateModalComponent implements OnInit {
       }
     }).subscribe((res) => {
       this.productData = res
-      console.log(this.productData)
+      // console.log(this.productData)
 
       for (let key in this.brands) {
         let value = this.brands[key]
@@ -62,18 +62,20 @@ export class UpdateModalComponent implements OnInit {
         }
       }
 
-      //Get Category
-      this.http.get(getAllCategories, {
+      //Get Category by brand Id
+      this.http.get(getCategoriesByBrandId + this.productBrandId, {
         headers: {
           "Authorization": "Bearer " + localStorage.getItem('token')
         }
       }).subscribe((res) => {
-        var tempCat: any = res
-        for (let key in tempCat) {
-          let value = tempCat[key]
+        this.categories = res
 
-          if (value.categoryName === this.productData.resultObj.categoryName) {
-            this.productCategoryId = value.categoryId
+        for (let key in this.categories) {
+          let value = this.categories[key]
+
+          if (value.name === this.productData.resultObj.categoryName) {
+            console.log(value.id)
+            this.productCategoryId = value.id
           }
 
         }
@@ -91,13 +93,14 @@ export class UpdateModalComponent implements OnInit {
   }
 
   onUpdate = () => {
+    console.log("Cat: ", this.updateForm.get('CategoryId')?.value)
     if (this.updateForm.valid) {
       var formData: any = new FormData();
       formData.append('Name', this.updateForm.get('Name')?.value);
       formData.append('Quantity', this.updateForm.get('Quantity')?.value);
       formData.append('Description', this.updateForm.get('Description')?.value);
       formData.append('CategoryId', this.updateForm.get('CategoryId')?.value)
-      formData.append('BrandId', this.brandId)
+      formData.append('BrandId', this.productBrandId)
     }
 
     this.http.put(putProduct + this.productId, formData, {
@@ -113,8 +116,8 @@ export class UpdateModalComponent implements OnInit {
 
   onBrandChange = (id: any) => {
     // console.log(this.addForm.get('brand'))
-    console.log(typeof (id.target.value))
-    this.brandId = id.target.value
+    console.log(id.target.value)
+    this.productBrandId = id.target.value
     this.http.get(getCategoriesByBrandId + id.target.value, {
       headers: {
         "Authorization": "Bearer " + localStorage.getItem("token")
