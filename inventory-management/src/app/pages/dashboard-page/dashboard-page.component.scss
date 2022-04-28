@@ -1,9 +1,9 @@
 @use "../../../assets/scss/index.scss" as *;
 
+
 .dashboard {
-  width: 100%;
   overflow: hidden;
-  min-height: 100vh;
+  height: calc(100vh - 84px);
 
   &__search {
     display: flex;
@@ -191,9 +191,8 @@
 
       .page-number {
         border: 1px solid #ccc;
-        padding: 7px 25px;
+        padding: 0;
         cursor: pointer;
-
         @include mobile {
           padding: 5px 15px;
         }
@@ -202,6 +201,15 @@
   }
 
   // fix
+
+  .page-number span {
+    padding: 7px 25px;
+    display: block;
+
+  }
+  .btn.active {
+    background-color: red;
+  }
   .pagination-previous,
   .pagination-next {
     padding: 0;
@@ -223,11 +231,17 @@
     position: relative;
   }
 
-  .dashboard__pagination--custom {
+  .dashboard__pagination {
     position: absolute;
-    bottom: 0;
+    // top: 85%;
     left: 50%;
+    bottom: 10%;
     transform: translateX(-50%);
+  }
+
+
+  footer{
+    margin: 0;
   }
 
   //

@@ -281,4 +281,5 @@ export class DashboardPageComponent implements OnInit {
   onDelete = () => {
     this.matDialog.open(DeleteModalComponent)
   };
+  
 }
