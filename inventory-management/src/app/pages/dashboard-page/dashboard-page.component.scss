@@ -1,9 +1,9 @@
 @use "../../../assets/scss/index.scss" as *;
 
+
 .dashboard {
-  width: 100%;
   overflow: hidden;
-  min-height: 100vh;
+  height: calc(100vh - 84px);
 
   &__search {
     display: flex;
@@ -84,12 +84,12 @@
       font-weight: 100;
 
       @include tablet {
-        padding: 31px;
+        padding: 10px;
       }
 
       @include mobile {
-        padding: 9px;
-        font-size: 11px;
+        padding: 7px;
+        font-size: 10px;
       }
     }
 
@@ -163,9 +163,8 @@
         border-bottom-left-radius: 5px;
         border-top-left-radius: 5px;
         cursor: pointer;
-
         @include mobile {
-          padding: 5px 15px;
+          padding: 4px 20px;
         }
       }
 
@@ -178,30 +177,38 @@
       }
 
       &--last {
-        padding: 6px 25px;
+        padding: 6px 28px;
         border: 2px solid #ccc;
         border-bottom-right-radius: 5px;
         border-top-right-radius: 5px;
         cursor: pointer;
 
         @include mobile {
-          padding: 5px 15px;
+          padding: 4px 20px;
         }
       }
 
       .page-number {
         border: 1px solid #ccc;
-        padding: 7px 25px;
+        padding: 0;
         cursor: pointer;
-
-        @include mobile {
-          padding: 5px 15px;
-        }
+      
       }
     }
   }
 
   // fix
+
+  .page-number span {
+    padding: 7px 25px;
+    display: block;
+    @include mobile {
+      padding: 4px 20px;
+    }
+  }
+  .btn.active {
+    background-color: red;
+  }
   .pagination-previous,
   .pagination-next {
     padding: 0;
@@ -212,22 +219,47 @@
   .pagination-next span {
     padding: 6px 25px;
     display: block;
+    @include mobile {
+      padding: 4px 20px;
+    }
   }
 
   .pagination-previous span {
     padding: 6px 25px;
     display: block;
+    @include mobile {
+      padding: 4px 20px;
+    }
   }
 
   .dashboard {
     position: relative;
+    @include tab-mobile{
+      margin: 0 8px;
+    }
   }
 
-  .dashboard__pagination--custom {
+  .dashboard__pagination {
     position: absolute;
-    bottom: 0;
+    // top: 85%;
     left: 50%;
+    bottom: 10%;
     transform: translateX(-50%);
+  }
+
+
+  footer{
+    margin: 0;
+  }
+
+  .dashboard__pagination{
+    @include tab-mobile{
+      // position: unset;
+    }
+  }
+
+  .dashboard__table{
+    
   }
 
   //
