@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-add',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalAddComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb:FormBuilder) { }
+  AddForm =this.fb.group({
+    "name":[""],
+    "mumber":[0],
+    "mess":[""] ,
+    "brand":[""] ,
+    "type":[""] ,
+  })
 
   ngOnInit(): void {
   }
+  onSubmit =()=>{
+    console.log(this.AddForm.value)
 
+  }
 }
