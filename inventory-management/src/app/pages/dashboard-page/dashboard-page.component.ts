@@ -21,22 +21,25 @@ interface defineDataCsv {
   styleUrls: ['./dashboard-page.component.scss'],
 })
 export class DashboardPageComponent implements OnInit {
-  search = ''
-  messageExport = ''
-  pathQuery = ''
-  config: any
-  total = 0
-  valueSortName = 0
-  valueSortDate = 0
-  initialSuggestion: string[] = []
-  suggestion: string[] = []
-  data: any[] = []
-  dataTmp: any[] = []
-  exportResult: defineDataCsv[] = []
-  resResult: any[] = []
+  search = '';
+  messageExport = '';
+  pathQuery = '';
+  config: any;
+  total = 0;
+  valueSortName = 0;
+  valueSortDate = 0;
+  initialSuggestion: string[] = [];
+  suggestion: string[] = [];
+  data: any[] = [];
+  dataTmp: any[] = [];
+  exportResult: defineDataCsv[] = [];
+  resResult: any[] = [];
 
-
-  constructor(private http: HttpClient, private matDialog: MatDialog, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private matDialog: MatDialog,
+    private router: Router
+  ) {
     this.config = {
       itemsPerPage: 10,
       currentPage: 1,
@@ -45,29 +48,30 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem("token") !== "") {
-      this.messageExport = ''
-      this.http.get(getAllProduct, {
-        headers: {
-          "Authorization": "Bearer " + localStorage.getItem("token")
-        }
-      }).subscribe((res) => {
-        this.resResult = [res]
-
-        this.data = this.resResult[0].items
-        this.total = this.data.length;
-        this.data.forEach((element) => {
-          this.initialSuggestion.push(element.name)
+    if (localStorage.getItem('token') !== '') {
+      this.messageExport = '';
+      this.http
+        .get(getAllProduct, {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+          },
         })
-      })
-    }
-    else {
-      this.router.navigate([''])
+        .subscribe((res) => {
+          this.resResult = [res];
+
+          this.data = this.resResult[0].items;
+          this.total = this.data.length;
+          this.data.forEach((element) => {
+            this.initialSuggestion.push(element.name);
+          });
+        });
+    } else {
+      this.router.navigate(['']);
     }
   }
 
   pageChanged(event: any) {
-    this.config.currentPage = event
+    this.config.currentPage = event;
   }
 
   onSearch = (search: string) => {
@@ -75,24 +79,26 @@ export class DashboardPageComponent implements OnInit {
       this.suggestion = this.initialSuggestion.filter((option) =>
         option.toLowerCase().includes(search.trim().toLowerCase())
       );
-      return
+      return;
     }
 
-    this.http.get(getAllProduct, {
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem("token")
-      }
-    }).subscribe((res) => {
-      this.resResult = [res]
-      this.data = this.resResult[0].items
+    this.http
+      .get(getAllProduct, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      })
+      .subscribe((res) => {
+        this.resResult = [res];
+        this.data = this.resResult[0].items;
 
-      this.valueSortDate = 1
-      this.data = this.onDateSort()
-      this.suggestion = []
+        this.valueSortDate = 1;
+        this.data = this.onDateSort();
+        this.suggestion = [];
 
-      this.config.totalItems = this.data.length
-      this.config.currentPage = 1
-    })
+        this.config.totalItems = this.data.length;
+        this.config.currentPage = 1;
+      });
   };
 
   changeFormatDate = (value: string) => {
@@ -104,19 +110,21 @@ export class DashboardPageComponent implements OnInit {
 
   onKeyPress = (key: any, search: string) => {
     if (key.keyCode === 13) {
-      this.search = search
-      this.pathQuery = "?Keyword=" + search
+      this.search = search;
+      this.pathQuery = '?Keyword=' + search;
 
-      this.http.get(getAllProduct + this.pathQuery, {
-        headers: {
-          "Authorization": "Bearer " + localStorage.getItem("token")
-        }
-      }).subscribe((res) => {
-        this.resResult = [res]
+      this.http
+        .get(getAllProduct + this.pathQuery, {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+          },
+        })
+        .subscribe((res) => {
+          this.resResult = [res];
 
-        this.data = this.resResult[0].items
-        this.config.totalItems = this.data.length
-      })
+          this.data = this.resResult[0].items;
+          this.config.totalItems = this.data.length;
+        });
     }
   };
 
@@ -128,7 +136,7 @@ export class DashboardPageComponent implements OnInit {
       showTitle: true,
       noDownload: false,
       headers: ['Tên sản phẩm', 'Số lượng', 'Người tạo', 'Thời gian tạo'],
-    }
+    };
 
     this.exportResult = [];
     this.data.forEach((element) => {
@@ -137,73 +145,76 @@ export class DashboardPageComponent implements OnInit {
         quantity: element.quantity,
         userCreate: element.userCreate,
         createDate: this.changeFormatDate(element.createDate),
-      })
-    })
-    new AngularCsv(this.exportResult, 'Data File', options)
-    return (this.messageExport = 'Xuất thành công')
+      });
+    });
+    new AngularCsv(this.exportResult, 'Data File', options);
+    return (this.messageExport = 'Xuất thành công');
   };
 
   onNameSort = () => {
     switch (this.valueSortName) {
       case 0:
-        if (this.search === "") {
-          this.pathQuery = "?SortOrder=name_asc"
+        if (this.search === '') {
+          this.pathQuery = '?SortOrder=name_asc';
+        } else {
+          this.pathQuery = '?Keyword=' + this.search + '&SortOrder=name_asc';
         }
-        else {
-          this.pathQuery = "?Keyword=" + this.search + "&SortOrder=name_asc"
-        }
 
-        this.http.get(getAllProduct + this.pathQuery, {
-          headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-          }
-        }).subscribe((res) => {
-          this.resResult = [res]
+        this.http
+          .get(getAllProduct + this.pathQuery, {
+            headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('token'),
+            },
+          })
+          .subscribe((res) => {
+            this.resResult = [res];
 
-          this.data = this.resResult[0].items
-        })
+            this.data = this.resResult[0].items;
+          });
 
-        this.valueSortName++
+        this.valueSortName++;
         break;
       case 1:
-        if (this.search === "") {
-          this.pathQuery = "?SortOrder=name_desc"
+        if (this.search === '') {
+          this.pathQuery = '?SortOrder=name_desc';
+        } else {
+          this.pathQuery = '?Keyword=' + this.search + '&SortOrder=name_desc';
         }
-        else {
-          this.pathQuery = "?Keyword=" + this.search + "&SortOrder=name_desc"
-        }
 
-        this.http.get(getAllProduct + this.pathQuery, {
-          headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-          }
-        }).subscribe((res) => {
-          this.resResult = [res]
+        this.http
+          .get(getAllProduct + this.pathQuery, {
+            headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('token'),
+            },
+          })
+          .subscribe((res) => {
+            this.resResult = [res];
 
-          this.data = this.resResult[0].items
-        })
+            this.data = this.resResult[0].items;
+          });
 
-        this.valueSortName++
+        this.valueSortName++;
         break;
       case 2:
-        if (this.search === "") {
-          this.pathQuery = "?SortOrder=date_desc"
+        if (this.search === '') {
+          this.pathQuery = '?SortOrder=date_desc';
+        } else {
+          this.pathQuery = '?Keyword=' + this.search + '&SortOrder=date_desc';
         }
-        else {
-          this.pathQuery = "?Keyword=" + this.search + "&SortOrder=date_desc"
-        }
 
-        this.http.get(getAllProduct + this.pathQuery, {
-          headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-          }
-        }).subscribe((res) => {
-          this.resResult = [res]
+        this.http
+          .get(getAllProduct + this.pathQuery, {
+            headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('token'),
+            },
+          })
+          .subscribe((res) => {
+            this.resResult = [res];
 
-          this.data = this.resResult[0].items
-        })
+            this.data = this.resResult[0].items;
+          });
 
-        this.valueSortName = 0
+        this.valueSortName = 0;
         break;
     }
   };
@@ -211,44 +222,46 @@ export class DashboardPageComponent implements OnInit {
   onDateSort = () => {
     switch (this.valueSortDate) {
       case 0:
-        if (this.search === "") {
-          this.pathQuery = "?SortOrder=date_asc"
+        if (this.search === '') {
+          this.pathQuery = '?SortOrder=date_asc';
+        } else {
+          this.pathQuery = '?Keyword=' + this.search + '&SortOrder=date_asc';
         }
-        else {
-          this.pathQuery = "?Keyword=" + this.search + "&SortOrder=date_asc"
-        }
 
-        this.http.get(getAllProduct + this.pathQuery, {
-          headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-          }
-        }).subscribe((res) => {
-          this.resResult = [res]
+        this.http
+          .get(getAllProduct + this.pathQuery, {
+            headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('token'),
+            },
+          })
+          .subscribe((res) => {
+            this.resResult = [res];
 
-          this.data = this.resResult[0].items
-        })
+            this.data = this.resResult[0].items;
+          });
 
-        this.valueSortDate++
+        this.valueSortDate++;
         break;
       case 1:
-        if (this.search === "") {
-          this.pathQuery = "?SortOrder=date_desc"
+        if (this.search === '') {
+          this.pathQuery = '?SortOrder=date_desc';
+        } else {
+          this.pathQuery = '?Keyword=' + this.search + '&SortOrder=date_desc';
         }
-        else {
-          this.pathQuery = "?Keyword=" + this.search + "&SortOrder=date_desc"
-        }
 
-        this.http.get(getAllProduct + this.pathQuery, {
-          headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-          }
-        }).subscribe((res) => {
-          this.resResult = [res]
+        this.http
+          .get(getAllProduct + this.pathQuery, {
+            headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('token'),
+            },
+          })
+          .subscribe((res) => {
+            this.resResult = [res];
 
-          this.data = this.resResult[0].items
-        })
+            this.data = this.resResult[0].items;
+          });
 
-        this.valueSortDate = 0
+        this.valueSortDate = 0;
         break;
     }
 
@@ -256,21 +269,25 @@ export class DashboardPageComponent implements OnInit {
   };
 
   onRowClick = (id: number) => {
-    this.router.navigate(['/detail-page', id])
+    this.router.navigate(['/detail-page', id]);
   };
 
   onAdd = () => {
-    this.matDialog.open(ModalAddComponent)
+    this.matDialog.open(ModalAddComponent);
   };
 
   onUpdate = (id: number) => {
     // console.log(id);
     // this.dataTmp = this.data.filter((element) => element.id === id)
     // console.log(this.dataTmp)
-    this.matDialog.open(UpdateModalComponent)
+    this.matDialog.open(UpdateModalComponent);
   };
 
-  onDelete = () => {
-    this.matDialog.open(DeleteModalComponent)
+  onDelete = (idDlt: number) => {
+    this.matDialog.open(DeleteModalComponent, {
+      data: {
+        id: idDlt,
+      },
+    });
   };
 }
