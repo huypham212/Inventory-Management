@@ -3,13 +3,13 @@
     <a href="dashboard-page" class="close-popup">&times;</a>
   </div>
   <div class="heading-add blue-color">CẬP NHẬT SẢN PHẨM</div>
-  <form action="none">
+  <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
     <div class="fm">
       <div class="fm-name blue-color">
         Tên sản phẩm<span class="fm-name-redstar"> *</span>
       </div>
       <div class="fm-input">
-        <input type="text" required />
+        <input type="text" formControlName="Name" required />
       </div>
     </div>
     <div class="fm">
@@ -17,13 +17,13 @@
         Số lượng<span class="fm-name-redstar"> *</span>
       </div>
       <div class="fm-input">
-        <input type="text" step="1" autocomplete="0" type="number" min="0" required/>
+        <input type="text" step="1" autocomplete="0" type="number" min="0" formControlName="Quantity" required />
       </div>
     </div>
     <div class="fm">
       <div class="fm-name blue-color">Mô tả</div>
       <div class="fm-input">
-        <textarea name="" id="fm-desc" maxlength="4000"></textarea>
+        <textarea name="" id="fm-desc" maxlength="4000" formControlName="Description"></textarea>
       </div>
     </div>
     <div class="fm">
@@ -31,11 +31,8 @@
         Hãng<span class="fm-name-redstar"> *</span>
       </div>
       <div class="fm-input">
-        <select name="fm-company" id="fm-company">
-          <option value="Dell">DELL</option>
-          <option value="asus">ASUS</option>
-          <option value="ecer">ACER</option>
-          <option value="HP">HP</option>
+        <select name="fm-company" id="fm-company" (change)="onBrandChange($event)">
+          <option *ngFor="let brand of brands" [value]="brand.id">{{brand.name}}</option>
         </select>
       </div>
     </div>
@@ -44,13 +41,11 @@
         Loại sản phẩm<span class="fm-name-redstar"> *</span>
       </div>
       <div class="fm-input">
-        <select name="fm-type-product" id="fm-type-product">
-          <option value="laptop">laptop</option>
-          <option value="desktop">desktop</option>
-          <option value="screen">phụ kiện laptop</option>
+        <select name="fm-type-product" id="fm-type-product" formControlName="CategoryId">
+          <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
         </select>
       </div>
-    </div> 
+    </div>
     <div class="btn">
       <button class="btn-detele">HUỶ</button>
       <button class="btn-add">CẬP NHẬT</button>

@@ -17,21 +17,20 @@ export class ModalAddComponent implements OnInit {
   userName = ''
   brands: any
   categories: any
-  selected:number
+  selected: number
   brandId: number
 
   constructor(private http: HttpClient, private matdialog: MatDialog, public formBuilder: FormBuilder, private route: Router) {
     this.addForm = this.formBuilder.group({
-      Name : [''],
+      Name: [''],
       Quantity: [0],
-      Description:[''],
-      CategoryId:[1],
-      BrandId:[1]
+      Description: [''],
+      CategoryId: [1],
+      BrandId: [1]
     })
   }
 
   ngOnInit() {
-    console.log(new Date().toString())
 
     //get brand
     this.http.get(getAllBrands, {
@@ -46,11 +45,11 @@ export class ModalAddComponent implements OnInit {
 
 
   }
-  
- 
+
+
   onAdd = () => {
-    if(this.addForm.valid){
-      var formData : any = new FormData();
+    if (this.addForm.valid) {
+      var formData: any = new FormData();
       formData.append('Name', this.addForm.get('Name')?.value);
       formData.append('Quantity', this.addForm.get('Quantity')?.value);
       formData.append('Description', this.addForm.get('Description')?.value);
@@ -59,7 +58,7 @@ export class ModalAddComponent implements OnInit {
     }
 
     this.http.post(postProduct, formData, {
-      headers:{
+      headers: {
         "Authorization": "Bearer " + localStorage.getItem('token')
       }
     }).subscribe((res) => {
@@ -67,13 +66,13 @@ export class ModalAddComponent implements OnInit {
       this.closePopup();
       this.reloadComponent();
     })
-    
-   }
+
+  }
 
 
-   onBrandChange = (id:any) => {
+  onBrandChange = (id: any) => {
     // console.log(this.addForm.get('brand'))
-    console.log(typeof(id.target.value))
+    console.log(typeof (id.target.value))
     this.brandId = id.target.value
     this.http.get(getCategoriesByBrandId + id.target.value, {
       headers: {
@@ -83,9 +82,9 @@ export class ModalAddComponent implements OnInit {
       this.categories = res
       console.log("categories: ", this.categories)
     })
-   }
+  }
 
-   reloadComponent() {
+  reloadComponent() {
     let currentUrl = this.route.url;
     this.route.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.onSameUrlNavigation = 'reload';
@@ -95,5 +94,5 @@ export class ModalAddComponent implements OnInit {
   closePopup() {
     this.matdialog.closeAll();
   }
-   
+
 }

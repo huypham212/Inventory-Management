@@ -280,7 +280,11 @@ export class DashboardPageComponent implements OnInit {
     // console.log(id);
     // this.dataTmp = this.data.filter((element) => element.id === id)
     // console.log(this.dataTmp)
-    this.matDialog.open(UpdateModalComponent);
+    this.matDialog.open(UpdateModalComponent, {
+      data: {
+        productId: id
+      }
+    });
   };
 
   onDelete = (idDlt: number) => {
@@ -290,5 +294,5 @@ export class DashboardPageComponent implements OnInit {
       },
     });
   };
-  
+
 }
