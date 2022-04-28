@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { getAllBrands, getUserName, getProductById, getAllCategories, getCategoriesByBrandId } from 'src/app/services';
 
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-add',

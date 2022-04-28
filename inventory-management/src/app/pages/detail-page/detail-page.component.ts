@@ -24,7 +24,7 @@ interface Data {
 export class DetailPageComponent implements OnInit {
   datas: any;
   id: any;
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
     this.http
@@ -53,9 +53,9 @@ export class DetailPageComponent implements OnInit {
     // console.log(this.datas);
   }
 
-  onFilter = (search: number) => {};
+  onFilter = (search: number) => { };
 
-  convertTimestampsToString = (value: number) => {
+  convertTimestampsToString = (value: string) => {
     return getDateString(value);
   };
 }

@@ -17,6 +17,7 @@ import { UpdateModalComponent } from './components/update-modal/update-modal.com
 import { ModalAddComponent } from './components/modal-add/modal-add.component';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ModalAddComponent } from './components/modal-add/modal-add.component';
 
 
 @NgModule({
