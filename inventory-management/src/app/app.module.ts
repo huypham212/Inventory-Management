@@ -14,6 +14,7 @@ import { DetailPageComponent } from './pages/detail-page/detail-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UpdateModalComponent } from './components/update-modal/update-modal.component';
+import { ModalAddComponent } from './components/modal-add/modal-add.component';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 import { LoginComponent } from './pages/login/login.component';
 
@@ -27,6 +28,7 @@ import { LoginComponent } from './pages/login/login.component';
     FooterComponent,
     UpdateModalComponent,
     DeleteModalComponent,
+    ModalAddComponent,
     LoginComponent
   ],
   imports: [
