@@ -8,18 +8,6 @@ import { ModalAddComponent } from './../../components/modal-add/modal-add.compon
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-interface Data {
-  id: number;
-  name: string;
-  quantity: number;
-  userCreate: string;
-  createDate: number;
-  userUpdate: string;
-  updateDate: string;
-  brandId: string;
-  categoryId: string;
-}
-
 interface defineDataCsv {
   name: string;
   quantity: number;
@@ -60,23 +48,26 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.messageExport = '';
-    this.http
-      .get(getAllProduct, {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
-        },
-      })
-      .subscribe((res) => {
-        this.resResult = [res];
+    if (localStorage.getItem('token') !== '') {
+      this.messageExport = '';
+      this.http
+        .get(getAllProduct, {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+          },
+        })
+        .subscribe((res) => {
+          this.resResult = [res];
 
-        this.data = this.resResult[0].items;
-
-        this.total = this.data.length;
-        this.data.forEach((element) => {
-          this.initialSuggestion.push(element.name);
+          this.data = this.resResult[0].items;
+          this.total = this.data.length;
+          this.data.forEach((element) => {
+            this.initialSuggestion.push(element.name);
+          });
         });
-      });
+    } else {
+      this.router.navigate(['']);
+    }
   }
 
   pageChanged(event: any) {
@@ -85,7 +76,6 @@ export class DashboardPageComponent implements OnInit {
 
   onSearch = (search: string) => {
     if (search !== '') {
-      console.log(search);
       this.suggestion = this.initialSuggestion.filter((option) =>
         option.toLowerCase().includes(search.trim().toLowerCase())
       );
@@ -111,8 +101,11 @@ export class DashboardPageComponent implements OnInit {
       });
   };
 
-  convertTimestampsToString = (value: number) => {
-    return getDateString(value);
+  changeFormatDate = (value: string) => {
+    let newDate = new Date(value);
+    // console.log(newDate.toLocaleString());
+    return getDateString(newDate.toLocaleString());
+    // return value
   };
 
   onKeyPress = (key: any, search: string) => {
@@ -151,7 +144,7 @@ export class DashboardPageComponent implements OnInit {
         name: element.name,
         quantity: element.quantity,
         userCreate: element.userCreate,
-        createDate: element.createDate,
+        createDate: this.changeFormatDate(element.createDate),
       });
     });
     new AngularCsv(this.exportResult, 'Data File', options);
@@ -161,7 +154,6 @@ export class DashboardPageComponent implements OnInit {
   onNameSort = () => {
     switch (this.valueSortName) {
       case 0:
-        console.log(this.valueSortName);
         if (this.search === '') {
           this.pathQuery = '?SortOrder=name_asc';
         } else {
@@ -183,7 +175,6 @@ export class DashboardPageComponent implements OnInit {
         this.valueSortName++;
         break;
       case 1:
-        console.log(this.valueSortName);
         if (this.search === '') {
           this.pathQuery = '?SortOrder=name_desc';
         } else {
@@ -205,7 +196,6 @@ export class DashboardPageComponent implements OnInit {
         this.valueSortName++;
         break;
       case 2:
-        console.log(this.valueSortName);
         if (this.search === '') {
           this.pathQuery = '?SortOrder=date_desc';
         } else {
