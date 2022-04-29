@@ -71,7 +71,8 @@ export class DetailPageComponent implements OnInit {
     // console.log(this.dataTmp)
     this.matDialog.open(UpdateModalComponent, {
       data: {
-        productId: this.route.snapshot.params['id']
+        productId: this.route.snapshot.params['id'],
+        isFromDetail: true
       }
     });
   };
@@ -80,6 +81,7 @@ export class DetailPageComponent implements OnInit {
     this.matDialog.open(DeleteModalComponent, {
       data: {
         id: this.route.snapshot.params['id'],
+        isFromDetail: true
       },
     });
   };

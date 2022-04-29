@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit, Optional } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { deleteProduct, putDelProduct } from 'src/app/services';
+import { UpdateModalComponent } from '../update-modal/update-modal.component';
 
 @Component({
   selector: 'app-delete-modal',
@@ -11,10 +12,12 @@ import { deleteProduct, putDelProduct } from 'src/app/services';
 })
 export class DeleteModalComponent implements OnInit {
   id: number;
+  message: string
   constructor(
     private route: Router,
     private http: HttpClient,
     private matDialog: MatDialog,
+    private diag: MatDialogRef<UpdateModalComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.id = data.id;
@@ -31,8 +34,8 @@ export class DeleteModalComponent implements OnInit {
         },
       })
       .subscribe((data) => {
-        console.log('Xóa thành công');
-        this.closePopup();
+        this.message = "Xóa vĩnh viễn thành công"
+        this.closePopup(this.message);
         this.reloadComponent();
       });
   }
@@ -43,20 +46,29 @@ export class DeleteModalComponent implements OnInit {
         Authorization: "Bearer " + localStorage.getItem('token')
       }
     }).subscribe((res) => {
-      console.log('Xóa tạm thời thành công');
-      this.closePopup();
+      this.message = 'Xóa tạm thời thành công';
+      this.closePopup(this.message);
       this.reloadComponent();
     })
   }
 
   reloadComponent() {
-    let currentUrl = this.route.url;
-    this.route.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.route.onSameUrlNavigation = 'reload';
-    this.route.navigate([currentUrl]);
+    if (this.data.isFromDetail) {
+      this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.route.onSameUrlNavigation = 'reload';
+      this.route.navigate(['/dashboard-page']);
+    }
+    else {
+      let currentUrl = this.route.url;
+      this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.route.onSameUrlNavigation = 'reload';
+      this.route.navigate([currentUrl]);
+    }
   }
 
-  closePopup() {
-    this.matDialog.closeAll();
+  closePopup(mess?: string) {
+    this.diag.close({
+      message: mess
+    });
   }
 }

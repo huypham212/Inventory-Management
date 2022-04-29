@@ -293,6 +293,7 @@ export class DashboardPageComponent implements OnInit {
     const dialogRef = this.matDialog.open(UpdateModalComponent, {
       data: {
         productId: id,
+        isFromDetail: false
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -305,10 +306,18 @@ export class DashboardPageComponent implements OnInit {
   };
 
   onDelete = (idDlt: number) => {
-    this.matDialog.open(DeleteModalComponent, {
+    const dialogRef = this.matDialog.open(DeleteModalComponent, {
       data: {
         id: idDlt,
+        isFromDetail: false
       },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('day la thong bao' + JSON.stringify(result.message));
+      // localStorage.setItem('message', 'Cập nhật thành công');
+      this.message = result.message;
+      // alert(localStorage.getItem('message'));
+      alert(this.message);
     });
   };
 }

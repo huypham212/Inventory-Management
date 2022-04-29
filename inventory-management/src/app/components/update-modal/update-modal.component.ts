@@ -160,10 +160,18 @@ export class UpdateModalComponent implements OnInit {
   };
 
   reloadComponent() {
-    let currentUrl = this.route.url;
-    this.route.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.route.onSameUrlNavigation = 'reload';
-    this.route.navigate([currentUrl]);
+    if (this.data.isFromDetail) {
+      this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.route.onSameUrlNavigation = 'reload';
+      this.route.navigate(['/dashboard-page']);
+    }
+    else {
+      let currentUrl = this.route.url;
+      this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.route.onSameUrlNavigation = 'reload';
+      this.route.navigate([currentUrl]);
+    }
+
   }
 
   closePopup(message?: string) {
