@@ -15,6 +15,7 @@
     background-color: white;
     font-family:roboto;
     font-weight: 600;
+    margin-top: 19px;
   }
  </style>
 <app-header></app-header>
@@ -44,8 +45,8 @@
                 disabled
                   *ngIf="datas.resultObj.description; else els"
                   style="border: none; resize: none"
-                  cols="30"
-                  rows="1"
+                  cols="25"
+                  rows="2"
                   >{{ datas.resultObj.description }}</textarea
                 >
                 <ng-template #els>
@@ -84,10 +85,9 @@
               <td class="list-item"style="color: gray"><i>Không có Thông Tin</i></td>
             </tr>
             <tr>
-              <td class="list-item">  <a href="#" class="buttoncn"></a>
-                <span class="buttontext">Cập Nhật</span></td>
-              <td class="list-item"> <a href="#" class="buttoncn"></a>
-                <span class="buttontext-2">Xóa</span></td>
+              <td class="list-item"><button class="buttontext">Cập Nhật</button></td>
+              <td class="list-item"> <button class="buttontext-2">Xóa</button></td>
+                
             </tr>
           </tbody>
         </table>

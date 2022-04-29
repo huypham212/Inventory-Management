@@ -49,6 +49,8 @@ margin-left:60px;
   border-radius: 5px;
   margin-right: 0px;
   margin-left:47px;
+  cursor: pointer;
+  border: none;
 }
 .buttontext-2 {
   background-color: #1e90ff;
@@ -56,9 +58,12 @@ margin-left:60px;
   color: white;
   border-radius: 5px;
   margin-left:-9px;
+  cursor: pointer;
+  border: none;
+  font-family: roboto;
 }
 .list-item{
-  padding-bottom:49px;
+  padding-bottom:43px;
   margin-left:60px;
 .row{
   margin-left:60px
@@ -68,27 +73,11 @@ margin-left:60px;
   color:#1e90ff;
 }
 }
-@media only screen and (max-width: 450px) and (min-width: 200px) {
+@media only screen and (max-width: 500px) and (min-width: 200px) {
   .boder {
     border-color: #a0a0a0;
 
     height: 600px;
-  }
-  .col-2 > p {
-    font-weight: 100;
-    text-align: left;
-    padding-bottom: 10px;
-  }
-  .col-1 > p {
-    padding-bottom: 10px;
-    text-align: left;
-  }
-  .buttontext {
-    background-color: #1e90ff;
-    padding: 13.6px 10px;
-    color: white;
-    border-radius: 5px;
-    margin-left: 54px;
   }
   .row > h1 {
     margin-top: 10px;
@@ -96,40 +85,20 @@ margin-left:60px;
     color: #1e90ff;
     font-size: 20px;
   }
-  .buttontext-2 {
-    background-color: #1e90ff;
-    padding: 13.6px 30px;
-    color: white;
-    border-radius: 5px;
-    margin-top: 20px;
-    margin-left:-1px;
-  }
-  .row {
-    margin-left: 0px;
-  }
-  .col-2 {
-    margin-left: -50px;
-  }
-  .col-1 {
-    margin-left: -60px;
-  }
-
   .list-item{
   width :90px;
-  padding-bottom:23px;
+  padding-bottom:30px;
   
   }
-}
-@media only screen and (max-width: 360px) {
- 
   .buttontext-2 {
     background-color: #1e90ff;
     padding: 9.5px 35px;
     color: white;
     border-radius: 5px;
     margin-top: -19px;
-    margin-left:-1px;
+    // margin-left:18px;
     position: absolute;
+    margin-left: -2px;
   }
   .buttontext {
     position: absolute;
@@ -138,11 +107,30 @@ margin-left:60px;
     color: white;
     border-radius: 5px;
     margin-top: -18px;
-    margin-left:-1px;
+    margin-left: 50px;
+    cursor: pointer;
+}
+}
+@media only screen and (max-width: 420px) {
+  .text{
+   
+    margin-left: -4px;
   }
-  .boder {
-    border-color: #a0a0a0;
-
+  .list-item{
+    padding-bottom: 26px;
+  }
+  .buttontext-2{
+    margin-left: 3px;
+  }
+  .buttontext{
+    margin-left: 38px;
+  }
+}
+@media only screen and (max-width: 380px) {
+  .buttontext{
+    margin-left: 20px;
+  }
+  .boder{
     height: 650px;
   }
 }
