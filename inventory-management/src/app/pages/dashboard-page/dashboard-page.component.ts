@@ -7,6 +7,7 @@ import { DeleteModalComponent } from './../../components/delete-modal/delete-mod
 import { ModalAddComponent } from './../../components/modal-add/modal-add.component';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 interface defineDataCsv {
   name: string;
@@ -38,7 +39,8 @@ export class DashboardPageComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private matDialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.config = {
       itemsPerPage: 10,
@@ -149,7 +151,7 @@ export class DashboardPageComponent implements OnInit {
       });
     });
     new AngularCsv(this.exportResult, 'Data File', options);
-    return (this.message = 'Xuất thành công');
+    this.toastr.success("Xuất thành công");
   };
 
   onNameSort = () => {
@@ -281,7 +283,7 @@ export class DashboardPageComponent implements OnInit {
       // localStorage.setItem('message', 'Cập nhật thành công');
       this.message = result.message;
       // alert(localStorage.getItem('message'));
-      alert(this.message);
+      this.toastr.success(this.message);
     });
   };
 
@@ -299,22 +301,17 @@ export class DashboardPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       (result) => {
         console.log('day la thong bao' + JSON.stringify(result.message));
-        // localStorage.setItem('message', 'Cập nhật thành công');
         this.message = result.message;
+        if (result.isError) {
+          this.toastr.error(this.message);
+        }
+        else {
+          this.toastr.success(this.message);
+        }
+
         // alert(localStorage.getItem('message'));
-        alert(this.message);
+
       }
-      // {
-      //   next: (res) => {
-      //     console.log(res);
-      //     this.message = res.message;
-      //     alert(this.message);
-      //   },
-      //   error: (err) => {
-      //     console.log(err);
-      //     alert('Cập nhật không thành công');
-      //   },
-      // }
     );
   };
 
@@ -327,10 +324,13 @@ export class DashboardPageComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('day la thong bao' + JSON.stringify(result.message));
-      // localStorage.setItem('message', 'Cập nhật thành công');
       this.message = result.message;
-      // alert(localStorage.getItem('message'));
-      alert(this.message);
+      if (result.isError) {
+        this.toastr.error(this.message);
+      }
+      else {
+        this.toastr.success(this.message);
+      }
     });
   };
 }

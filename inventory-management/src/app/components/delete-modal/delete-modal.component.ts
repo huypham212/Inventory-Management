@@ -33,10 +33,19 @@ export class DeleteModalComponent implements OnInit {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
       })
-      .subscribe((data) => {
-        this.message = "Xóa vĩnh viễn thành công"
-        this.closePopup(this.message);
-        this.reloadComponent();
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.message = 'Xóa vĩnh viễn sản phẩm thành công';
+          this.closePopup(false, this.message);
+          this.reloadComponent();
+        },
+        error: (err) => {
+          console.log(err);
+          this.message = 'Xóa vĩnh viễn sản phẩm không thành công';
+          this.closePopup(true, this.message);
+          // alert('Cập nhật không thành công');
+        },
       });
   }
 
@@ -45,10 +54,19 @@ export class DeleteModalComponent implements OnInit {
       headers: {
         Authorization: "Bearer " + localStorage.getItem('token')
       }
-    }).subscribe((res) => {
-      this.message = 'Xóa tạm thời thành công';
-      this.closePopup(this.message);
-      this.reloadComponent();
+    }).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.message = 'Xóa tạm thời sản phẩm thành công';
+        this.closePopup(false, this.message);
+        this.reloadComponent();
+      },
+      error: (err) => {
+        console.log(err);
+        this.message = 'Xóa tạm thời sản phẩm không thành công';
+        this.closePopup(true, this.message);
+        // alert('Cập nhật không thành công');
+      },
     })
   }
 
@@ -66,8 +84,9 @@ export class DeleteModalComponent implements OnInit {
     }
   }
 
-  closePopup(mess?: string) {
+  closePopup(error?: boolean, mess?: string) {
     this.diag.close({
+      isError: error,
       message: mess
     });
   }

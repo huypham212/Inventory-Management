@@ -140,13 +140,13 @@ export class UpdateModalComponent implements OnInit {
           next: (res) => {
             console.log(res);
             this.message = 'Cập nhật sản phẩm thành công';
-            this.closePopup(this.message);
+            this.closePopup(false, this.message);
             this.reloadComponent();
           },
           error: (err) => {
             console.log(err);
             this.message = 'Cập nhật sản phẩm không thành công';
-            this.closePopup(this.message);
+            this.closePopup(false, this.message);
             // alert('Cập nhật không thành công');
           },
         }
@@ -190,7 +190,10 @@ export class UpdateModalComponent implements OnInit {
 
   }
 
-  closePopup(message?: string) {
-    this.diag.close({ message: message });
+  closePopup(error?: boolean, message?: string) {
+    this.diag.close({
+      isError: error,
+      message: message
+    });
   }
 }
