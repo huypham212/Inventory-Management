@@ -1,97 +1,108 @@
 <style>
-  .list{
-    margin-left :40px;
+  .list {
+    margin-left: 40px;
   }
-  .list-item{
-    width :180px;
+
+  .list-item {
+    width: 180px;
   }
-  .h1{
-    margin-top:30px;
-    color :#1e90ff;
+
+  .h1 {
+    margin-top: 30px;
+    color: #1e90ff;
   }
-  .text{
+
+  .text {
     font-size: 17px;
     color: black;
     background-color: white;
-    font-family:roboto;
+    font-family: roboto;
     font-weight: 600;
+    margin-top: 19px;
   }
- </style>
+</style>
 <app-header></app-header>
 <div class="warrap">
   <div class="container">
     <div class="boder">
       <div class="row">
         <h1 style="color:#1e90ff">Thông Tin Chi Tiết Sản Phẩm</h1>
-        <div class="list">    
-        <table>
-          <tbody >
-            <tr>
-              <td class="list-item">Tên Sản Phẩm</td>
-             
-              <td class="list-item"><strong>{{ datas.resultObj.name }}</strong></td>
-            </tr>
-            <tr>
-              <td class="list-item">Số Lượng</td>
-              
-              <td class="list-item"><strong>{{ datas.resultObj.quantity }}</strong></td>
-            </tr>
-            <tr>
-              <td class="list-item">Mô Tả</td>
-              
-              <td class="list-item">
-                <textarea class="text"
-                disabled
-                  *ngIf="datas.resultObj.description; else els"
-                  style="border: none; resize: none"
-                  cols="30"
-                  rows="1"
-                  >{{ datas.resultObj.description }}</textarea
-                >
-                <ng-template #els>
-                  <i style="color: gray">Không có Thông Tin</i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td class="list-item">Hãng</td>
-             
-              <td class="list-item"><strong>{{ datas.resultObj.brandName }}</strong></td>
-            </tr>
-            <tr>
-              <td class="list-item">Loại Sản Phẩm</td>
-            
-              <td class="list-item"><strong>{{ datas.resultObj.categoryName }}</strong></td>
-            </tr>
-            <tr>
-              <td class="list-item">Người Tạo</td>
-              
-              <td class="list-item"><strong>{{ datas.resultObj.userCreate }}</strong></td>
-            </tr>
-            <tr>
-              <td class="list-item">Thời Gian</td>
-              
-              <td class="list-item"><strong>{{ datas.resultObj.createDate }}</strong></td>
-            </tr>
-            <tr>
-              <td class="list-item">Người Cập Nhật</td>
-              
-              <td class="list-item" style="color: gray"><i>Không có Thông Tin</i></td>
-            </tr>
-            <tr>
-              <td class="list-item">Thời Gian Cập Nhật</td>
-             
-              <td class="list-item"style="color: gray"><i>Không có Thông Tin</i></td>
-            </tr>
-            <tr>
-              <td class="list-item">  <a href="#" class="buttoncn"></a>
-                <span class="buttontext">Cập Nhật</span></td>
-              <td class="list-item"> <a href="#" class="buttoncn"></a>
-                <span class="buttontext-2">Xóa</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <div class="list">
+          <table>
+            <tbody>
+              <tr>
+                <td class="list-item">Tên Sản Phẩm</td>
+
+                <td class="list-item"><strong>{{ datas.resultObj.name }}</strong></td>
+              </tr>
+              <tr>
+                <td class="list-item">Số Lượng</td>
+
+                <td class="list-item"><strong>{{ datas.resultObj.quantity }}</strong></td>
+              </tr>
+              <tr>
+                <td class="list-item">Mô Tả</td>
+
+                <td class="list-item">
+                  <textarea class="text" disabled *ngIf="datas.resultObj.description; else els"
+                    style="border: none; resize: none" cols="30" rows="2">{{ datas.resultObj.description }}</textarea>
+                  <ng-template #els>
+                    <i style="color: gray">Không có Thông Tin</i>
+                  </ng-template>
+                </td>
+              </tr>
+              <tr>
+                <td class="list-item">Hãng</td>
+
+                <td class="list-item"><strong>{{ datas.resultObj.brandName }}</strong></td>
+              </tr>
+              <tr>
+                <td class="list-item">Loại Sản Phẩm</td>
+
+                <td class="list-item"><strong>{{ datas.resultObj.categoryName }}</strong></td>
+              </tr>
+              <tr>
+                <td class="list-item">Người Tạo</td>
+
+                <td class="list-item"><strong>{{ datas.resultObj.userCreate }}</strong></td>
+              </tr>
+              <tr>
+                <td class="list-item">Thời Gian</td>
+
+                <td class="list-item"><strong>{{ changeFormatDate(datas.resultObj.createDate) }}</strong></td>
+              </tr>
+              <tr>
+                <td class="list-item">Người Cập Nhật</td>
+
+                <td class="list-item">
+                  <i class="text" disabled *ngIf="datas.resultObj.userUpdate; else userUpdate"
+                    style="border: none; resize: none" cols="30" rows="1">{{ datas.resultObj.userUpdate }}</i>
+                  <ng-template #userUpdate>
+                    <i style="color: gray">Không có Thông Tin</i>
+                  </ng-template>
+                </td>
+              </tr>
+              <tr>
+                <td class="list-item">Thời Gian Cập Nhật</td>
+
+                <td class="list-item">
+                  <i class="text" disabled *ngIf="datas.resultObj.updateDate; else updateDate"
+                    style="border: none; resize: none" cols="30" rows="2">{{
+                    changeFormatDate(datas.resultObj.updateDate) }}</i>
+                  <ng-template #updateDate>
+                    <i style="color: gray">Không có Thông Tin</i>
+                  </ng-template>
+                </td>
+              </tr>
+              <tr>
+                <td class="list-item"> <button (click)="onUpdate()" class="buttontext">Cập Nhật</button>
+                </td>
+                <td class="list-item"> <button (click)="onDelete()" class="buttontext-2">Xóa</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

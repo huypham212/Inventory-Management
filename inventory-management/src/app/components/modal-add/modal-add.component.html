@@ -17,14 +17,14 @@
             <div class="fm-name blue-color">Số lượng<span class="fm-name-redstar"> *</span>
             </div>
             <div class="fm-input">
-                <input type="number" name="" id="number" formControlName="number" formControlName="Quantity" required>
+                <input  min ="0" type="number" name="" id="number" formControlName="number" formControlName="Quantity" pattern="[0-999]" required>
             </div>
         </div>
         <div class="fm">
             <div class="fm-name blue-color">Mô tả
             </div>
             <div class="fm-input">
-                <textarea name="mess" id="mess" maxlength="4000" formControlName="Description"></textarea>
+                <textarea style="resize: none;" name="mess" id="mess" maxlength="4000" formControlName="Description"></textarea>
             </div>
         </div>
         <div class="fm">
