@@ -88,25 +88,19 @@ export class ModalAddComponent implements OnInit {
         },
       })
       .subscribe(
-        (res) => {
-          console.log(this.brandId + ' abc');
-          this.message = 'Thêm sản phẩm thành công';
-          this.closePopup(this.message);
-          this.reloadComponent();
+        {
+          next: (res) => {
+            console.log(res);
+            this.message = 'Thêm sản phẩm thành công';
+            this.closePopup(false, this.message);
+            this.reloadComponent();
+          },
+          error: (err) => {
+            console.log(err);
+            this.message = 'Thêm sản phẩm không thành công';
+            this.closePopup(true, this.message);
+          },
         }
-        // {
-        //   next: (res) => {
-        //     console.log(res);
-        //     this.message = 'Thêm sản phẩm thành công';
-        //     this.closePopup(this.message);
-        //     this.reloadComponent();
-        //   },
-        //   error: (err) => {
-        //     console.log(err);
-        //     this.message = 'Thêm sản phẩm không thành công';
-        //     this.closePopup(this.message);
-        //   },
-        // }
       );
   };
 
@@ -143,7 +137,10 @@ export class ModalAddComponent implements OnInit {
     this.route.navigate([currentUrl]);
   }
 
-  closePopup(message?: string) {
-    this.diag.close({ message: message });
+  closePopup(error?: boolean, message?: string) {
+    this.diag.close({
+      isError: error,
+      message: message
+    });
   }
 }

@@ -280,17 +280,17 @@ export class DashboardPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('day la thong bao' + JSON.stringify(result.message));
-      // localStorage.setItem('message', 'Cập nhật thành công');
       this.message = result.message;
-      // alert(localStorage.getItem('message'));
-      this.toastr.success(this.message);
+      if (result.isError) {
+        this.toastr.error(this.message);
+      }
+      else {
+        this.toastr.success(this.message);
+      }
     });
   };
 
   onUpdate = (id: number) => {
-    // console.log(id);
-    // this.dataTmp = this.data.filter((element) => element.id === id)
-    // console.log(this.dataTmp)
 
     const dialogRef = this.matDialog.open(UpdateModalComponent, {
       data: {
@@ -308,8 +308,6 @@ export class DashboardPageComponent implements OnInit {
         else {
           this.toastr.success(this.message);
         }
-
-        // alert(localStorage.getItem('message'));
 
       }
     );
