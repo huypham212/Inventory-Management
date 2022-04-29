@@ -23,8 +23,9 @@ export class ModalAddComponent implements OnInit {
   brands: any;
   categories: any;
   selected: number;
-  brandId: number;
+  brandId: any;
   message = '';
+  cateId: any;
 
   constructor(
     private http: HttpClient,
@@ -56,24 +57,27 @@ export class ModalAddComponent implements OnInit {
       });
 
     this.http
-      .get(getCategoriesByBrandId + '1', {
+      .get(getCategoriesByBrandId + 1, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
       })
       .subscribe((res) => {
         this.categories = res;
-        console.log('categories: ', this.categories);
+
+        console.log('categories 002: ', this.categories);
       });
   }
 
   onAdd = () => {
     if (this.addForm.valid) {
+      // console.log(this.cateId);
+      // return;
       var formData: any = new FormData();
       formData.append('Name', this.addForm.get('Name')?.value);
       formData.append('Quantity', this.addForm.get('Quantity')?.value);
       formData.append('Description', this.addForm.get('Description')?.value);
-      formData.append('CategoryId', this.addForm.get('CategoryId')?.value);
+      formData.append('CategoryId', this.cateId);
       formData.append('BrandId', this.brandId);
     }
 
@@ -84,25 +88,25 @@ export class ModalAddComponent implements OnInit {
         },
       })
       .subscribe(
-        //   (res) => {
-        //   console.log(res);
-        //   this.message = 'Thêm sản phẩm thành công';
-        //   this.closePopup(this.message);
-        //   this.reloadComponent();
-        // }
-        {
-          next: (res) => {
-            console.log(res);
-            this.message = 'Thêm sản phẩm thành công';
-            this.closePopup(this.message);
-            this.reloadComponent();
-          },
-          error: (err) => {
-            console.log(err);
-            this.message = 'Thêm sản phẩm không thành công';
-            this.closePopup(this.message);
-          },
+        (res) => {
+          console.log(this.brandId + ' abc');
+          this.message = 'Thêm sản phẩm thành công';
+          this.closePopup(this.message);
+          this.reloadComponent();
         }
+        // {
+        //   next: (res) => {
+        //     console.log(res);
+        //     this.message = 'Thêm sản phẩm thành công';
+        //     this.closePopup(this.message);
+        //     this.reloadComponent();
+        //   },
+        //   error: (err) => {
+        //     console.log(err);
+        //     this.message = 'Thêm sản phẩm không thành công';
+        //     this.closePopup(this.message);
+        //   },
+        // }
       );
   };
 
@@ -110,6 +114,7 @@ export class ModalAddComponent implements OnInit {
     // console.log(this.addForm.get('brand'))
     console.log(typeof id.target.value);
     this.brandId = id.target.value;
+    console.log(this.brandId);
     this.http
       .get(getCategoriesByBrandId + id.target.value, {
         headers: {
@@ -118,8 +123,17 @@ export class ModalAddComponent implements OnInit {
       })
       .subscribe((res) => {
         this.categories = res;
+        // this.brandId = this.categories.brandId;
+
         console.log('categories: ', this.categories);
       });
+  };
+
+  onCategoryChange = (id: any) => {
+    // console.log(this.addForm.get('brand'))
+    console.log(id.target.value);
+    this.cateId = id.target.value;
+    console.log('cateId: ', this.cateId);
   };
 
   reloadComponent() {
