@@ -295,13 +295,26 @@ export class DashboardPageComponent implements OnInit {
         productId: id,
       },
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('day la thong bao' + JSON.stringify(result.message));
-      // localStorage.setItem('message', 'Cập nhật thành công');
-      this.message = result.message;
-      // alert(localStorage.getItem('message'));
-      alert(this.message);
-    });
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        console.log('day la thong bao' + JSON.stringify(result.message));
+        // localStorage.setItem('message', 'Cập nhật thành công');
+        this.message = result.message;
+        // alert(localStorage.getItem('message'));
+        alert(this.message);
+      }
+      // {
+      //   next: (res) => {
+      //     console.log(res);
+      //     this.message = res.message;
+      //     alert(this.message);
+      //   },
+      //   error: (err) => {
+      //     console.log(err);
+      //     alert('Cập nhật không thành công');
+      //   },
+      // }
+    );
   };
 
   onDelete = (idDlt: number) => {

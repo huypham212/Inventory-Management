@@ -129,12 +129,28 @@ export class UpdateModalComponent implements OnInit {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
       })
-      .subscribe((res) => {
-        console.log(res);
-        this.message = 'Cập nhật sản phẩm thành công';
-        this.closePopup(this.message);
-        this.reloadComponent();
-      });
+      .subscribe(
+        // (res) => {
+        //   console.log(res);
+        //   this.message = 'Cập nhật sản phẩm thành công';
+        //   this.closePopup(this.message);
+        //   this.reloadComponent();
+        // }
+        {
+          next: (res) => {
+            console.log(res);
+            this.message = 'Cập nhật sản phẩm thành công';
+            this.closePopup(this.message);
+            this.reloadComponent();
+          },
+          error: (err) => {
+            console.log(err);
+            this.message = 'Cập nhật sản phẩm không thành công';
+            this.closePopup(this.message);
+            // alert('Cập nhật không thành công');
+          },
+        }
+      );
   };
 
   onCategoryChange = (id: any) => {

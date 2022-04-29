@@ -83,12 +83,27 @@ export class ModalAddComponent implements OnInit {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
       })
-      .subscribe((res) => {
-        console.log(res);
-        this.message = 'Thêm sản phẩm thành công';
-        this.closePopup(this.message);
-        this.reloadComponent();
-      });
+      .subscribe(
+        //   (res) => {
+        //   console.log(res);
+        //   this.message = 'Thêm sản phẩm thành công';
+        //   this.closePopup(this.message);
+        //   this.reloadComponent();
+        // }
+        {
+          next: (res) => {
+            console.log(res);
+            this.message = 'Thêm sản phẩm thành công';
+            this.closePopup(this.message);
+            this.reloadComponent();
+          },
+          error: (err) => {
+            console.log(err);
+            this.message = 'Thêm sản phẩm không thành công';
+            this.closePopup(this.message);
+          },
+        }
+      );
   };
 
   onBrandChange = (id: any) => {
