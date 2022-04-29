@@ -64,21 +64,22 @@ export class DetailPageComponent implements OnInit {
     // return value
   };
 
-  onUpdate = (id: number) => {
+  onUpdate = () => {
+    console.log(this.route.snapshot.params['id'])
     // console.log(id);
     // this.dataTmp = this.data.filter((element) => element.id === id)
     // console.log(this.dataTmp)
     this.matDialog.open(UpdateModalComponent, {
       data: {
-        productId: id
+        productId: this.route.snapshot.params['id']
       }
     });
   };
 
-  onDelete = (idDlt: number) => {
+  onDelete = () => {
     this.matDialog.open(DeleteModalComponent, {
       data: {
-        id: idDlt,
+        id: this.route.snapshot.params['id'],
       },
     });
   };
