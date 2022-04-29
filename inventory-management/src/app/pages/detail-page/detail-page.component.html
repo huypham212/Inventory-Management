@@ -45,7 +45,7 @@
 
                 <td class="list-item">
                   <textarea class="text" disabled *ngIf="datas.resultObj.description; else els"
-                    style="border: none; resize: none" cols="30" rows="1">{{ datas.resultObj.description }}</textarea>
+                    style="border: none; resize: none" cols="30" rows="2">{{ datas.resultObj.description }}</textarea>
                   <ng-template #els>
                     <i style="color: gray">Không có Thông Tin</i>
                   </ng-template>
@@ -87,7 +87,7 @@
 
                 <td class="list-item">
                   <i class="text" disabled *ngIf="datas.resultObj.updateDate; else updateDate"
-                    style="border: none; resize: none" cols="30" rows="1">{{
+                    style="border: none; resize: none" cols="30" rows="2">{{
                     changeFormatDate(datas.resultObj.updateDate) }}</i>
                   <ng-template #updateDate>
                     <i style="color: gray">Không có Thông Tin</i>
