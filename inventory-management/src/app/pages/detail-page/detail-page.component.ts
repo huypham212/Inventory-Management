@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { DeleteModalComponent } from 'src/app/components/delete-modal/delete-modal.component';
+import { UpdateModalComponent } from 'src/app/components/update-modal/update-modal.component';
 import { getDateString } from 'src/app/services';
 import { getProductById } from 'src/app/services';
-import dataa from '../../data/data.json';
 
 interface Data {
   name: string;
@@ -24,7 +26,7 @@ interface Data {
 export class DetailPageComponent implements OnInit {
   datas: any;
   id: any;
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient, private matDialog: MatDialog) { }
 
   ngOnInit() {
     this.http
@@ -55,7 +57,29 @@ export class DetailPageComponent implements OnInit {
 
   onFilter = (search: number) => { };
 
-  convertTimestampsToString = (value: string) => {
-    return getDateString(value);
+  changeFormatDate = (value: string) => {
+    let newDate = new Date(value);
+    // console.log(newDate.toLocaleString());
+    return getDateString(newDate.toLocaleString());
+    // return value
+  };
+
+  onUpdate = (id: number) => {
+    // console.log(id);
+    // this.dataTmp = this.data.filter((element) => element.id === id)
+    // console.log(this.dataTmp)
+    this.matDialog.open(UpdateModalComponent, {
+      data: {
+        productId: id
+      }
+    });
+  };
+
+  onDelete = (idDlt: number) => {
+    this.matDialog.open(DeleteModalComponent, {
+      data: {
+        id: idDlt,
+      },
+    });
   };
 }
