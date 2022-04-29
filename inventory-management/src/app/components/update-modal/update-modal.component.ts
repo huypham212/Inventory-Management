@@ -99,7 +99,7 @@ export class UpdateModalComponent implements OnInit {
       formData.append('Name', this.updateForm.get('Name')?.value);
       formData.append('Quantity', this.updateForm.get('Quantity')?.value);
       formData.append('Description', this.updateForm.get('Description')?.value);
-      formData.append('CategoryId', this.updateForm.get('CategoryId')?.value)
+      formData.append('CategoryId', this.productCategoryId)
       formData.append('BrandId', this.productBrandId)
     }
 
@@ -112,6 +112,12 @@ export class UpdateModalComponent implements OnInit {
       this.closePopup();
       this.reloadComponent();
     })
+  }
+
+  onCategoryChange = (id: any) => {
+    // console.log(this.addForm.get('brand'))
+    console.log(id.target.value)
+    this.productCategoryId = id.target.value
   }
 
   onBrandChange = (id: any) => {

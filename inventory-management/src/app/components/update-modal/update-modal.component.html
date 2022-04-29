@@ -42,7 +42,8 @@
         Loại sản phẩm<span class="fm-name-redstar"> *</span>
       </div>
       <div class="fm-input">
-        <select name="fm-type-product" id="fm-type-product" formControlName="CategoryId" [value]="productCategoryId">
+        <select name="fm-type-product" id="fm-type-product" [value]="productCategoryId"
+          (change)="onCategoryChange($event)">
           <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
         </select>
       </div>
