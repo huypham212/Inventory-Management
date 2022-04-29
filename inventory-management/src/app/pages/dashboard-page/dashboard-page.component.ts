@@ -22,7 +22,7 @@ interface defineDataCsv {
 })
 export class DashboardPageComponent implements OnInit {
   search = '';
-  messageExport = '';
+  message = '';
   pathQuery = '';
   config: any;
   total = 0;
@@ -49,7 +49,7 @@ export class DashboardPageComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem('token') !== '') {
-      this.messageExport = '';
+      // this.messageExport = '';
       this.http
         .get(getAllProduct, {
           headers: {
@@ -65,6 +65,7 @@ export class DashboardPageComponent implements OnInit {
             this.initialSuggestion.push(element.name);
           });
         });
+      // this.onMess();
     } else {
       this.router.navigate(['']);
     }
@@ -148,7 +149,7 @@ export class DashboardPageComponent implements OnInit {
       });
     });
     new AngularCsv(this.exportResult, 'Data File', options);
-    return (this.messageExport = 'Xuất thành công');
+    return (this.message = 'Xuất thành công');
   };
 
   onNameSort = () => {
@@ -273,17 +274,33 @@ export class DashboardPageComponent implements OnInit {
   };
 
   onAdd = () => {
-    this.matDialog.open(ModalAddComponent);
+    const dialogRef = this.matDialog.open(ModalAddComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('day la thong bao' + JSON.stringify(result.message));
+      // localStorage.setItem('message', 'Cập nhật thành công');
+      this.message = result.message;
+      // alert(localStorage.getItem('message'));
+      alert(this.message);
+    });
   };
 
   onUpdate = (id: number) => {
     // console.log(id);
     // this.dataTmp = this.data.filter((element) => element.id === id)
     // console.log(this.dataTmp)
-    this.matDialog.open(UpdateModalComponent, {
+
+    const dialogRef = this.matDialog.open(UpdateModalComponent, {
       data: {
-        productId: id
-      }
+        productId: id,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('day la thong bao' + JSON.stringify(result.message));
+      // localStorage.setItem('message', 'Cập nhật thành công');
+      this.message = result.message;
+      // alert(localStorage.getItem('message'));
+      alert(this.message);
     });
   };
 
@@ -294,5 +311,4 @@ export class DashboardPageComponent implements OnInit {
       },
     });
   };
-
 }
